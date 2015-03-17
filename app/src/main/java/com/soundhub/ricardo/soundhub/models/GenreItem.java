@@ -3,6 +3,7 @@ package com.soundhub.ricardo.soundhub.models;
 import com.soundhub.ricardo.soundhub.R;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  * Created by ricardo on 17-03-2015.
@@ -36,6 +37,10 @@ public class GenreItem {
     }
 
     public void setNowPlaying(boolean nowPlaying) {
+        if (nowPlaying) {
+            this.playCount += 1;
+            this.lastPlayed = new Date().toString();
+        }
         this.nowPlaying = nowPlaying;
     }
 

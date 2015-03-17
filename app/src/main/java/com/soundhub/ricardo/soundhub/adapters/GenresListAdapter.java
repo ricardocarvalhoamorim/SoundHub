@@ -57,15 +57,23 @@ public class GenresListAdapter  extends RecyclerView.Adapter<RecyclerView.ViewHo
         ((GenreItemViewHolder) holder).tvItemValue.setText(item.getGenreValue());
 
         if (item.getSingers().size() != 0) {
+            ((GenreItemViewHolder) holder).tvItemArtists.setVisibility(View.VISIBLE);
             ((GenreItemViewHolder) holder).tvItemArtists.setText(item.getSingers().toString());
+        } else {
+            ((GenreItemViewHolder) holder).tvItemArtists.setVisibility(View.GONE);
         }
 
         if (item.getPlayCount() > 0) {
+            ((GenreItemViewHolder) holder).tvItemPlayCount.setVisibility(View.VISIBLE);
             ((GenreItemViewHolder) holder).tvItemPlayCount.setText("Played: " + item.getPlayCount());
+        } else {
+            ((GenreItemViewHolder) holder).tvItemPlayCount.setVisibility(View.GONE);
         }
 
         if (item.isNowPlaying()) {
             ((GenreItemViewHolder) holder).tvNowPlaying.setVisibility(View.VISIBLE);
+        } else {
+            ((GenreItemViewHolder) holder).tvNowPlaying.setVisibility(View.GONE);
         }
 
         ((GenreItemViewHolder) holder).tvItemLastPlayed.setText("Last played: " + item.getLastPlayed());

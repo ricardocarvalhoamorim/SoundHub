@@ -12,23 +12,25 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 import com.soundhub.ricardo.soundhub.R;
 import com.soundhub.ricardo.soundhub.Utils;
 import com.soundhub.ricardo.soundhub.adapters.GenresListAdapter;
 import com.soundhub.ricardo.soundhub.interfaces.OnItemClickListener;
 import com.soundhub.ricardo.soundhub.models.GenreItem;
 
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 
 
 public class GenresListFragment extends Fragment implements OnItemClickListener {
 
 
+    /**
+     * Which item is currently playing
+     */
+    private int isPlaying;
 
     private GenresListAdapter mAdapter;
-    private RecyclerView mRecyclerView;
+    ArrayList<GenreItem> items;
 
     public GenresListFragment() {
     }
@@ -38,18 +40,13 @@ public class GenresListFragment extends Fragment implements OnItemClickListener 
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_main, container, false);
 
-        mRecyclerView = (RecyclerView) rootView.findViewById(R.id.list_genres);
+        RecyclerView mRecyclerView = (RecyclerView) rootView.findViewById(R.id.list_genres);
 
         final LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         mRecyclerView.setLayoutManager(layoutManager);
 
-        ArrayList<GenreItem> items = new ArrayList<>();
-        for (String genre : Utils.genres) {
-            GenreItem newItem = new GenreItem();
-            newItem.setGenreValue(genre);
-            items.add(newItem);
-        }
+        clearStatistics();
 
         mAdapter = new GenresListAdapter(items, this, getActivity());
         mRecyclerView.setAdapter(mAdapter);
@@ -59,7 +56,20 @@ public class GenresListFragment extends Fragment implements OnItemClickListener 
 
     @Override
     public void onItemClick(View view, int position) {
-        view.setBackgroundColor(getResources().getColor(android.R.color.holo_red_dark));
+
+        if (isPlaying == -1) {
+            items.get(position).setNowPlaying(true);
+            isPlaying = position;
+        } else if (isPlaying == position) {
+            items.get(position).setNowPlaying(!items.get(position).isNowPlaying());
+        } else {
+            items.get(isPlaying).setNowPlaying(false);
+            items.get(position).setNowPlaying(true);
+            isPlaying = position;
+        }
+
+        mAdapter.notifyDataSetChanged();
+        isPlaying = position;
     }
 
     @Override
@@ -72,23 +82,12 @@ public class GenresListFragment extends Fragment implements OnItemClickListener 
      * Removes the available statistics and set everything to zero
      */
     public void clearStatistics() {
+
         SharedPreferences settings = getActivity().getSharedPreferences(
                 getResources().getString(R.string.app_name), Context.MODE_PRIVATE);
 
-        ArrayList<GenreItem> items;
-
         if (!settings.contains(Utils.GENRE_STATS_ENTRY)) {
-            items = new ArrayList<>();
-            for (String genre : Utils.genres) {
-                GenreItem newItem = new GenreItem();
-                newItem.setGenreValue(genre);
-                items.add(newItem);
-            }
-            SharedPreferences.Editor editor = settings.edit();
-            editor.putString(Utils.GENRE_STATS_ENTRY, new Gson().toJson(items));
-            editor.apply();
-            mAdapter.notifyDataSetChanged();
-            Toast.makeText(getActivity(), "Successfully created entries", Toast.LENGTH_SHORT).show();
+            dispatchBaseStatistics(settings);
             return;
         }
 
@@ -108,7 +107,39 @@ public class GenresListFragment extends Fragment implements OnItemClickListener 
                 new Gson().toJson(items));
 
         editor.apply();
-        mAdapter.notifyDataSetChanged();
+
+        if (mAdapter == null) {
+            mAdapter = new GenresListAdapter(items, this, getActivity());
+        } else {
+            mAdapter.notifyDataSetChanged();
+        }
+
         Toast.makeText(getActivity(), "Cleared", Toast.LENGTH_SHORT).show();
+    }
+
+    /**
+     * Populates the entry with the base genres and usage statistics
+     * @param settings Shared Preferences
+     */
+    public void dispatchBaseStatistics(SharedPreferences settings) {
+        items = new ArrayList<>();
+        for (String genre : Utils.genres) {
+            GenreItem newItem = new GenreItem();
+            newItem.setGenreValue(genre);
+            items.add(newItem);
+        }
+
+        SharedPreferences.Editor editor = settings.edit();
+        editor.putString(Utils.GENRE_STATS_ENTRY, new Gson().toJson(items));
+        editor.apply();
+
+        if (mAdapter == null) {
+            mAdapter = new GenresListAdapter(items, this, getActivity());
+        } else {
+            mAdapter.notifyDataSetChanged();
+        }
+
+        Toast.makeText(getActivity(), "Successfully created entries", Toast.LENGTH_SHORT).show();
+        return;
     }
 }
