@@ -1,25 +1,34 @@
 package com.soundhub.ricardo.soundhub.fragments;
 
 import android.app.Fragment;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.soundhub.ricardo.soundhub.R;
 import com.soundhub.ricardo.soundhub.adapters.GenresListAdapter;
 import com.soundhub.ricardo.soundhub.interfaces.OnItemClickListener;
 import com.soundhub.ricardo.soundhub.models.GenreItem;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Arrays;
 
 
 public class GenresListFragment extends Fragment implements OnItemClickListener {
 
-    private String[] genres = {
+    private static final Type ARRAY_GENRE_ITEMS = new TypeToken<ArrayList<GenreItem>>(){}.getType();
+    private static final String GENRE_STATS_ENTRY = "genre_statistics";
+
+    private static final String[] genres = {
             "80s"                  , "Acid Jazz"          , "Acoustic Rock"      , "African"
             , "Alternative"        , "Ambient"            , "Americana"          ,"Arabic"
             ,"Avantgarde"          ,"Bachata"             ,"Bhangra"             ,"Blues"
@@ -87,10 +96,36 @@ public class GenresListFragment extends Fragment implements OnItemClickListener 
 
     }
 
+    //TODO use this function
     /**
      * Removes the available statistics and set everything to zero
      */
-    public static void clearStatistics() {
+    public void clearStatistics() {
+        SharedPreferences settings = getActivity().getSharedPreferences(
+                getResources().getString(R.string.app_name), Context.MODE_PRIVATE);
 
+        ArrayList<GenreItem> items;
+
+        if (!settings.contains(GENRE_STATS_ENTRY)) {
+            items = new ArrayList<>();
+            for (String genre : genres) {
+                GenreItem newItem = new GenreItem();
+                newItem.setGenreValue(genre);
+                items.add(newItem);
+            }
+            mAdapter.notifyDataSetChanged();
+            return;
+        }
+
+        items = new Gson().fromJson(settings.getString(GENRE_STATS_ENTRY, ""), ARRAY_GENRE_ITEMS);
+
+        for (GenreItem item : items) {
+            item.setLastPlayed("");
+            item.setPlayCount(0);
+            item.setSingers(new ArrayList<String>());
+        }
+        mAdapter.notifyDataSetChanged();
+        Toast.makeText(getActivity(), "Cleared", Toast.LENGTH_SHORT).show();
     }
+
 }
