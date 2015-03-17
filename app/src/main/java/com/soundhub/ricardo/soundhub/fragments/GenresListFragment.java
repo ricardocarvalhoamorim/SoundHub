@@ -47,7 +47,6 @@ public class GenresListFragment extends Fragment implements OnItemClickListener 
             ,"Tech House"          ,"Techno"              ,"Thrash Metal"        ,"Trance"
             ,"Trap"                ,"Trip-hop"            ,"Turntablism" };
 
-
     private GenresListAdapter mAdapter;
     private RecyclerView mRecyclerView;
 
