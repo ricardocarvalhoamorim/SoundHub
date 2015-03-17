@@ -14,47 +14,18 @@ import android.widget.Toast;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.soundhub.ricardo.soundhub.R;
+import com.soundhub.ricardo.soundhub.Utils;
 import com.soundhub.ricardo.soundhub.adapters.GenresListAdapter;
 import com.soundhub.ricardo.soundhub.interfaces.OnItemClickListener;
 import com.soundhub.ricardo.soundhub.models.GenreItem;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 
 public class GenresListFragment extends Fragment implements OnItemClickListener {
 
-    private static final Type ARRAY_GENRE_ITEMS = new TypeToken<ArrayList<GenreItem>>(){}.getType();
-    private static final String GENRE_STATS_ENTRY = "genre_statistics";
 
-    private static final String[] genres = {
-            "80s"                  , "Acid Jazz"          , "Acoustic Rock"      , "African"
-            , "Alternative"        , "Ambient"            , "Americana"          ,"Arabic"
-            ,"Avantgarde"          ,"Bachata"             ,"Bhangra"             ,"Blues"
-            ,"Blues Rock"          ,"Bossa Nova"
-            ,"Chanson"             ,"Chillout"            ,"Chiptunes"           ,"Choir"
-            ,"Classic Rock"        ,"Classical"           ,"Classical Guitar"    ,"Contemporary"
-            ,"Country"             ,"Cumbia"              ,"Dance"               ,"Dancehall"
-            ,"Death Metal"         ,"Dirty South"         ,"Disco"               ,"Dream Pop"
-            ,"Drum & Bass"         ,"Dub"                 ,"Dubstep"             ,"Easy Listening"
-            ,"Electro House"       ,"Electronic"          ,"Electronic Pop"      ,"Electronic Rock"
-            ,"Folk"                ,"Folk Rock"           ,"Funk"                ,"Glitch"
-            ,"Gospel"              ,"Grime"               ,"Grindcore"           ,"Grunge"
-            ,"Hard Rock"           ,"Hardcore"            ,"Heavy Metal"         ,"Hip-Hop"
-            ,"House"               ,"Indie"               ,"Indie Pop"           ,"Industrial Metal"
-            ,"Instrumental Rock"   ,"J-Pop"               ,"Jazz"                ,"Jazz Funk"
-            ,"Jazz Fusion"         ,"K-Pop"               ,"Latin"               ,"Latin Jazz"
-            ,"Mambo"               ,"Metalcore"           ,"Middle Eastern"      ,"Minimal"
-            ,"Modern Jazz"         ,"Moombahton"          ,"New Wave"            ,"Nu Jazz"
-            ,"Opera"               ,"Orchestral"          ,"Piano"               ,"Pop"
-            ,"Post Hardcore"       ,"Post Rock"           ,"Progressive House"   ,"Progressive Metal"
-            ,"Progressive Rock"    ,"Punk"                ,"R&B"                 ,"Rap"
-            ,"Reggae"              ,"Reggaeton"           ,"Riddim"              ,"Rock"
-            ,"Rock 'n' Roll"       ,"Salsa"               ,"Samba"               ,"Shoegaze"
-            ,"Singer / Songwriter" ,"Smooth Jazz"         ,"Soul"                ,"Synth Pop"
-            ,"Tech House"          ,"Techno"              ,"Thrash Metal"        ,"Trance"
-            ,"Trap"                ,"Trip-hop"            ,"Turntablism" };
 
     private GenresListAdapter mAdapter;
     private RecyclerView mRecyclerView;
@@ -74,7 +45,7 @@ public class GenresListFragment extends Fragment implements OnItemClickListener 
         mRecyclerView.setLayoutManager(layoutManager);
 
         ArrayList<GenreItem> items = new ArrayList<>();
-        for (String genre : genres) {
+        for (String genre : Utils.genres) {
             GenreItem newItem = new GenreItem();
             newItem.setGenreValue(genre);
             items.add(newItem);
@@ -106,26 +77,38 @@ public class GenresListFragment extends Fragment implements OnItemClickListener 
 
         ArrayList<GenreItem> items;
 
-        if (!settings.contains(GENRE_STATS_ENTRY)) {
+        if (!settings.contains(Utils.GENRE_STATS_ENTRY)) {
             items = new ArrayList<>();
-            for (String genre : genres) {
+            for (String genre : Utils.genres) {
                 GenreItem newItem = new GenreItem();
                 newItem.setGenreValue(genre);
                 items.add(newItem);
             }
+            SharedPreferences.Editor editor = settings.edit();
+            editor.putString(Utils.GENRE_STATS_ENTRY, new Gson().toJson(items));
+            editor.apply();
             mAdapter.notifyDataSetChanged();
+            Toast.makeText(getActivity(), "Successfully created entries", Toast.LENGTH_SHORT).show();
             return;
         }
 
-        items = new Gson().fromJson(settings.getString(GENRE_STATS_ENTRY, ""), ARRAY_GENRE_ITEMS);
+        items = new Gson().fromJson(
+                settings.getString(Utils.GENRE_STATS_ENTRY, ""),
+                Utils.ARRAY_GENRE_ITEMS);
 
         for (GenreItem item : items) {
             item.setLastPlayed("");
             item.setPlayCount(0);
             item.setSingers(new ArrayList<String>());
         }
+
+        SharedPreferences.Editor editor = settings.edit();
+        editor.putString(
+                Utils.GENRE_STATS_ENTRY,
+                new Gson().toJson(items));
+
+        editor.apply();
         mAdapter.notifyDataSetChanged();
         Toast.makeText(getActivity(), "Cleared", Toast.LENGTH_SHORT).show();
     }
-
 }
