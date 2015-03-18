@@ -13,6 +13,7 @@ import android.view.WindowManager;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.software.shell.fab.ActionButton;
 import com.soundhub.ricardo.soundhub.fragments.GenresListFragment;
 import com.soundhub.ricardo.soundhub.interfaces.OnPlayerStatusChanged;
 
@@ -23,6 +24,7 @@ public class MainActivity extends Activity implements OnPlayerStatusChanged {
 
 
     private LinearLayout playerContainer;
+    private ActionButton actionButton;
     private TextView playerMessage;
 
     @Override
@@ -31,6 +33,9 @@ public class MainActivity extends Activity implements OnPlayerStatusChanged {
         setContentView(R.layout.activity_main);
 
         playerMessage = (TextView) findViewById(R.id.player_status);
+        actionButton = (ActionButton) findViewById(R.id.action_button);
+
+        actionButton.hide();
 
         if (savedInstanceState == null) {
             getFragmentManager().beginTransaction()
@@ -68,6 +73,7 @@ public class MainActivity extends Activity implements OnPlayerStatusChanged {
         Random rnd = new Random();
         int color = Color.argb(255, rnd.nextInt(256), rnd.nextInt(256), rnd.nextInt(256));
 
+        actionButton.show();
         playerMessage.setText(message);
         playerMessage.setBackgroundColor(color);
     }
