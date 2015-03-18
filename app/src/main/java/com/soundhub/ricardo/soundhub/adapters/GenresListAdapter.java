@@ -4,7 +4,12 @@ package com.soundhub.ricardo.soundhub.adapters;
  * Created by ricardo on 17-03-2015.
  */
 
+import android.animation.ArgbEvaluator;
+import android.animation.ValueAnimator;
 import android.content.Context;
+import android.graphics.drawable.ColorDrawable;
+import android.os.Build;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -75,7 +80,6 @@ public class GenresListAdapter  extends RecyclerView.Adapter<RecyclerView.ViewHo
         } else {
             ((GenreItemViewHolder) holder).tvNowPlaying.setVisibility(View.GONE);
         }
-
         ((GenreItemViewHolder) holder).tvItemLastPlayed.setText("Last played: " + item.getLastPlayed());
     }
 
@@ -98,6 +102,7 @@ public class GenresListAdapter  extends RecyclerView.Adapter<RecyclerView.ViewHo
         private TextView tvItemLastPlayed;
         private TextView tvItemArtists;
         private TextView tvNowPlaying;
+        private CardView itemCard;
 
 
         public GenreItemViewHolder(View rowView) {
@@ -108,6 +113,7 @@ public class GenresListAdapter  extends RecyclerView.Adapter<RecyclerView.ViewHo
             tvItemLastPlayed = (TextView) rowView.findViewById(R.id.genre_play_last_played);
             tvItemPlayCount = (TextView) rowView.findViewById(R.id.genre_play_count);
             tvNowPlaying = (TextView) rowView.findViewById(R.id.genre_now_playing);
+            itemCard = (CardView) rowView.findViewById(R.id.item_card_container);
 
             rowView.setOnClickListener(this);
             rowView.setOnLongClickListener(this);

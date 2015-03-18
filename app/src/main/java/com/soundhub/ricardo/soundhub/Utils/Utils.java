@@ -1,7 +1,8 @@
-package com.soundhub.ricardo.soundhub;
+package com.soundhub.ricardo.soundhub.Utils;
 
 import com.google.gson.reflect.TypeToken;
 import com.soundhub.ricardo.soundhub.models.GenreItem;
+import com.soundhub.ricardo.soundhub.models.TrackLookupResponse;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -11,7 +12,11 @@ import java.util.ArrayList;
  */
 public class Utils {
 
+    public static final String clientKey = "1d6219b73d0ca10f8284138b20d29f19";
+
+    public static final String soundCloudBaseAddr = "http://api.soundcloud.com/tracks";
     public static final Type ARRAY_GENRE_ITEMS = new TypeToken<ArrayList<GenreItem>>(){}.getType();
+    public static final Type ARRAY_GENRE_ITEMS_RESPONSE = new TypeToken<ArrayList<TrackLookupResponse>>(){}.getType();
     public static final String GENRE_STATS_ENTRY = "genre_statistics";
 
     public static final String[] genres = {
