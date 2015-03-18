@@ -2,7 +2,6 @@
 <resources>
     <style name="AppTheme" parent="android:Theme.Material.Light">
         <!-- Customize your theme here. -->
-        <item name="android:fitsSystemWindows">true</item>
         <!--<item name="android:windowTranslucentNavigation">true</item>-->
         <item name="android:colorPrimary">@color/primary</item>
         <!-- Act. Bar -->

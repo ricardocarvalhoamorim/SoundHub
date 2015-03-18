@@ -19,6 +19,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.TextView;
 
 import com.soundhub.ricardo.soundhub.R;
+import com.soundhub.ricardo.soundhub.interfaces.OnGenreItemChanged;
 import com.soundhub.ricardo.soundhub.interfaces.OnItemClickListener;
 import com.soundhub.ricardo.soundhub.models.GenreItem;
 
@@ -81,6 +82,7 @@ public class GenresListAdapter  extends RecyclerView.Adapter<RecyclerView.ViewHo
             ((GenreItemViewHolder) holder).tvNowPlaying.setVisibility(View.GONE);
         }
         ((GenreItemViewHolder) holder).tvItemLastPlayed.setText("Last played: " + item.getLastPlayed());
+
     }
 
 
@@ -140,4 +142,5 @@ public class GenresListAdapter  extends RecyclerView.Adapter<RecyclerView.ViewHo
             lastPosition = position;
         }
     }
+
 }

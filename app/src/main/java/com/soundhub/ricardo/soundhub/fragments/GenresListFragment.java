@@ -30,6 +30,7 @@ import com.soundhub.ricardo.soundhub.models.ProgressUpdateItem;
 import com.soundhub.ricardo.soundhub.models.TrackLookupResponse;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 
 public class GenresListFragment extends Fragment implements OnItemClickListener, AsyncCustomTaskHandler<ArrayList<TrackLookupResponse>>, ExoPlayer.Listener {
@@ -247,6 +248,7 @@ public class GenresListFragment extends Fragment implements OnItemClickListener,
                 break;
 
             case ExoPlayer.STATE_READY:
+                //Update item layout
                 break;
 
             case ExoPlayer.STATE_ENDED:

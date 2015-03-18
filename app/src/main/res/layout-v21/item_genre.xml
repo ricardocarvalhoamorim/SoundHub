@@ -15,15 +15,6 @@
         android:padding="10dp"
         >
 
-        <TextView
-            android:id="@+id/genre_now_playing"
-            android:visibility="gone"
-            android:gravity="end"
-            android:textColor="@android:color/holo_red_dark"
-            android:layout_marginBottom="8dp"
-            android:text="...NOW PLAYING"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
 
         <TextView
             android:id="@+id/genre_value"
@@ -60,5 +51,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
+        <TextView
+            android:id="@+id/genre_now_playing"
+            android:visibility="gone"
+            android:gravity="end"
+            android:textColor="@android:color/holo_red_dark"
+            android:layout_marginBottom="8dp"
+            android:text="...NOW PLAYING"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
     </LinearLayout>
 </android.support.v7.widget.CardView>
