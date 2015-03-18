@@ -27,4 +27,5 @@ dependencies {
     compile 'com.android.support:cardview-v7:21.0.3'
     compile 'com.google.code.gson:gson:2.3.1'
     compile 'eu.the4thfloor.volley:com.android.volley:2015.02.02'
+    compile 'com.github.shell-software:fab:1.0.5'
 }

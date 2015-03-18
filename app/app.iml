@@ -93,6 +93,7 @@
     <orderEntry type="library" exported="" name="support-annotations-21.0.3" level="project" />
     <orderEntry type="library" exported="" name="com.android.volley-2015.02.02" level="project" />
     <orderEntry type="library" exported="" name="cardview-v7-21.0.3" level="project" />
+    <orderEntry type="library" exported="" name="fab-1.0.5" level="project" />
   </component>
 </module>
 

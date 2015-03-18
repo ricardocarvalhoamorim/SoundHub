@@ -1,22 +1,40 @@
 package com.soundhub.ricardo.soundhub;
 
 import android.app.Activity;
+import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
+import android.util.TypedValue;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.soundhub.ricardo.soundhub.fragments.GenresListFragment;
+import com.soundhub.ricardo.soundhub.interfaces.OnPlayerStatusChanged;
+
+import java.util.Random;
 
 
-public class MainActivity extends Activity {
+public class MainActivity extends Activity implements OnPlayerStatusChanged {
+
+
+    private LinearLayout playerContainer;
+    private TextView playerMessage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        playerMessage = (TextView) findViewById(R.id.player_status);
+
         if (savedInstanceState == null) {
             getFragmentManager().beginTransaction()
-                    .add(R.id.container, new GenresListFragment())
+                    .add(R.id.container, GenresListFragment.newInstance(this))
                     .setCustomAnimations(R.anim.abc_fade_in, R.anim.abc_fade_out)
                     .commit();
         }
@@ -38,10 +56,28 @@ public class MainActivity extends Activity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_search) {
             return true;
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onPlayerChanged(String message) {
+        Random rnd = new Random();
+        int color = Color.argb(255, rnd.nextInt(256), rnd.nextInt(256), rnd.nextInt(256));
+
+        playerMessage.setText(message);
+        playerMessage.setBackgroundColor(color);
+    }
+
+    @Override
+    public void onPlayerStopped() {
+        Random rnd = new Random();
+        int color = Color.argb(255, rnd.nextInt(256), rnd.nextInt(256), rnd.nextInt(256));
+
+        playerMessage.setText("STOPPED");
+        playerMessage.setBackgroundColor(color);
     }
 }

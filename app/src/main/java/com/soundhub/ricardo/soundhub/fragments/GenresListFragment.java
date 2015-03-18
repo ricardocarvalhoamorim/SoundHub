@@ -19,12 +19,14 @@ import com.google.android.exoplayer.FrameworkSampleSource;
 import com.google.android.exoplayer.MediaCodecAudioTrackRenderer;
 import com.google.android.exoplayer.TrackRenderer;
 import com.google.gson.Gson;
+import com.soundhub.ricardo.soundhub.AppController;
 import com.soundhub.ricardo.soundhub.Async.AsyncTrackFetcher;
 import com.soundhub.ricardo.soundhub.R;
 import com.soundhub.ricardo.soundhub.Utils.Utils;
 import com.soundhub.ricardo.soundhub.adapters.GenresListAdapter;
 import com.soundhub.ricardo.soundhub.interfaces.AsyncCustomTaskHandler;
 import com.soundhub.ricardo.soundhub.interfaces.OnItemClickListener;
+import com.soundhub.ricardo.soundhub.interfaces.OnPlayerStatusChanged;
 import com.soundhub.ricardo.soundhub.models.GenreItem;
 import com.soundhub.ricardo.soundhub.models.ProgressUpdateItem;
 import com.soundhub.ricardo.soundhub.models.TrackLookupResponse;
@@ -46,12 +48,19 @@ public class GenresListFragment extends Fragment implements OnItemClickListener,
      */
     private ExoPlayer exoPlayer;
 
+    private static OnPlayerStatusChanged playerStatusListener;
     private GenresListAdapter mAdapter;
     ArrayList<GenreItem> items;
 
     private ArrayList<TrackLookupResponse> playQueue;
 
     public GenresListFragment() {
+    }
+
+    public static GenresListFragment newInstance(OnPlayerStatusChanged listener) {
+        GenresListFragment fragment = new GenresListFragment();
+        playerStatusListener = listener;
+        return fragment;
     }
 
     @Override
@@ -82,6 +91,7 @@ public class GenresListFragment extends Fragment implements OnItemClickListener,
 
         new AsyncTrackFetcher(this).execute(builtUri);
 
+
         Log.v("URI", "BUILT URI FOR STREAMING: " + builtUri);
     }
 
@@ -91,8 +101,10 @@ public class GenresListFragment extends Fragment implements OnItemClickListener,
             exoPlayer.release();
             mAdapter.notifyDataSetChanged();
             Toast.makeText(getActivity(), "Stopped", Toast.LENGTH_SHORT).show();
+            playerStatusListener.onPlayerStopped();
             return;
         }
+
 
         Toast.makeText(getActivity(), "Not playing", Toast.LENGTH_SHORT).show();
     }
@@ -215,6 +227,8 @@ public class GenresListFragment extends Fragment implements OnItemClickListener,
         exoPlayer.addListener(this);
         exoPlayer.prepare(audioRenderer);
         exoPlayer.setPlayWhenReady(true);
+
+        playerStatusListener.onPlayerChanged(items.get(isPlaying).getGenreValue());
     }
 
     private void releasePlayer() {
@@ -240,37 +254,42 @@ public class GenresListFragment extends Fragment implements OnItemClickListener,
     public void onPlayerStateChanged(boolean playWhenReady, int playbackState) {
         switch (playbackState) {
             case ExoPlayer.STATE_BUFFERING:
-                Toast.makeText(getActivity(), "Buffering", Toast.LENGTH_SHORT).show();
+                playerStatusListener.onPlayerChanged("Buffering");
                 break;
 
             case ExoPlayer.STATE_PREPARING:
-                Toast.makeText(getActivity(), "Preparing", Toast.LENGTH_SHORT).show();
+                playerStatusListener.onPlayerChanged("Preparing");
                 break;
 
             case ExoPlayer.STATE_READY:
+                playerStatusListener.onPlayerChanged("Playing " + items.get(isPlaying).getGenreValue());
                 //Update item layout
                 break;
 
             case ExoPlayer.STATE_ENDED:
-                Toast.makeText(getActivity(), "Finished", Toast.LENGTH_SHORT).show();
+                playerStatusListener.onPlayerChanged("Finished");
                 break;
 
             case ExoPlayer.STATE_IDLE:
                 break;
         }
-
-
     }
 
     @Override
     public void onPlayWhenReadyCommitted() {
-
     }
 
     @Override
     public void onPlayerError(ExoPlaybackException error) {
         Toast.makeText(getActivity(), error.toString(), Toast.LENGTH_LONG).show();
         Log.e("PlayerError", error.toString());
+        playerStatusListener.onPlayerChanged("Error");
         releasePlayer();
+    }
+
+    @Override
+    public void onPause() {
+
+        super.onPause();
     }
 }

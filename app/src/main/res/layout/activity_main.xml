@@ -1,4 +1,48 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" android:id="@+id/container"
-    android:layout_width="match_parent" android:layout_height="match_parent"
-    tools:context=".MainActivity" tools:ignore="MergeRootFrame" />
+<RelativeLayout xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <LinearLayout
+        android:id="@+id/player_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:background="@android:color/darker_gray"
+        >
+
+
+        <TextView
+            android:id="@+id/player_status"
+            android:gravity="end"
+            android:paddingEnd="10dp"
+            android:paddingRight="10dp"
+            android:text="Wellcome"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_below="@id/player_layout"
+        android:id="@+id/container"
+        android:layout_width="match_parent" android:layout_height="match_parent"
+        tools:context=".MainActivity" tools:ignore="MergeRootFrame" />
+
+    <com.software.shell.fab.ActionButton xmlns:fab="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/action_button"
+        fab:type="DEFAULT"
+        fab:button_color="@color/fab_material_red_500"
+        fab:button_colorPressed="@color/fab_material_red_900"
+        fab:image="@drawable/fab_plus_icon"
+        fab:image_size="24dp"
+        fab:show_animation="@anim/fab_roll_from_down"
+        fab:hide_animation="@anim/fab_roll_to_down"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="@dimen/fab_margin"
+        android:layout_marginBottom="@dimen/fab_margin"
+        />
+</RelativeLayout>
