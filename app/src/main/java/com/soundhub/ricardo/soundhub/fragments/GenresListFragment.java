@@ -1,5 +1,6 @@
 package com.soundhub.ricardo.soundhub.fragments;
 
+import android.app.Activity;
 import android.app.Fragment;
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -21,6 +22,7 @@ import com.google.android.exoplayer.TrackRenderer;
 import com.google.gson.Gson;
 import com.soundhub.ricardo.soundhub.AppController;
 import com.soundhub.ricardo.soundhub.Async.AsyncTrackFetcher;
+import com.soundhub.ricardo.soundhub.MainActivity;
 import com.soundhub.ricardo.soundhub.R;
 import com.soundhub.ricardo.soundhub.Utils.Utils;
 import com.soundhub.ricardo.soundhub.adapters.GenresListAdapter;
@@ -228,7 +230,7 @@ public class GenresListFragment extends Fragment implements OnItemClickListener,
         exoPlayer.prepare(audioRenderer);
         exoPlayer.setPlayWhenReady(true);
 
-        playerStatusListener.onPlayerChanged(items.get(isPlaying).getGenreValue());
+        playerStatusListener.onFeedbackAvailable(items.get(isPlaying).getGenreValue());
     }
 
     private void releasePlayer() {
@@ -254,20 +256,20 @@ public class GenresListFragment extends Fragment implements OnItemClickListener,
     public void onPlayerStateChanged(boolean playWhenReady, int playbackState) {
         switch (playbackState) {
             case ExoPlayer.STATE_BUFFERING:
-                playerStatusListener.onPlayerChanged("Buffering");
+                playerStatusListener.onFeedbackAvailable("Buffering");
                 break;
 
             case ExoPlayer.STATE_PREPARING:
-                playerStatusListener.onPlayerChanged("Preparing");
+                playerStatusListener.onFeedbackAvailable("Preparing");
                 break;
 
             case ExoPlayer.STATE_READY:
-                playerStatusListener.onPlayerChanged("Playing " + items.get(isPlaying).getGenreValue());
-                //Update item layout
+                playerStatusListener.onFeedbackAvailable("Playing " + items.get(isPlaying).getGenreValue());
+                playerStatusListener.onPlayerStart();
                 break;
 
             case ExoPlayer.STATE_ENDED:
-                playerStatusListener.onPlayerChanged("Finished");
+                playerStatusListener.onFeedbackAvailable("Finished");
                 break;
 
             case ExoPlayer.STATE_IDLE:
@@ -283,7 +285,7 @@ public class GenresListFragment extends Fragment implements OnItemClickListener,
     public void onPlayerError(ExoPlaybackException error) {
         Toast.makeText(getActivity(), error.toString(), Toast.LENGTH_LONG).show();
         Log.e("PlayerError", error.toString());
-        playerStatusListener.onPlayerChanged("Error");
+        playerStatusListener.onFeedbackAvailable("Error");
         releasePlayer();
     }
 
@@ -291,5 +293,20 @@ public class GenresListFragment extends Fragment implements OnItemClickListener,
     public void onPause() {
 
         super.onPause();
+    }
+
+    @Override
+    public void onAttach(Activity activity) {
+        try {
+            playerStatusListener = (MainActivity) activity;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(activity.toString()
+                    + " must implement OnPlayerStatusChanged");
+        }
+        super.onAttach(activity);
+    }
+
+    public void onFabButtonTap() {
+        playerStatusListener.onFeedbackAvailable("MESSAGE ABAILABLE OH BITCHA");
     }
 }

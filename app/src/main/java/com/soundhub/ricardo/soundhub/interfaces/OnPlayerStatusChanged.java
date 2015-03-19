@@ -5,6 +5,8 @@ package com.soundhub.ricardo.soundhub.interfaces;
  */
 public interface OnPlayerStatusChanged {
 
-    public void onPlayerChanged(String message);
+    public void onFeedbackAvailable(String message);
+    public void onPlayerStart();
+    public void onPlayerPaused();
     public void onPlayerStopped();
 }
