@@ -22,7 +22,7 @@ import com.soundhub.ricardo.soundhub.interfaces.OnPlayerStatusChanged;
 import java.util.Random;
 
 
-public class MainActivity extends Activity implements OnPlayerStatusChanged, View.OnClickListener {
+public class MainActivity extends Activity implements OnPlayerStatusChanged, View.OnClickListener, View.OnLongClickListener {
 
 
     private LinearLayout playerContainer;
@@ -40,6 +40,7 @@ public class MainActivity extends Activity implements OnPlayerStatusChanged, Vie
 
         actionButton.hide();
         actionButton.setOnClickListener(this);
+        actionButton.setOnLongClickListener(this);
 
         genresListFragment = new GenresListFragment();
 
@@ -111,5 +112,15 @@ public class MainActivity extends Activity implements OnPlayerStatusChanged, Vie
         } else {
             Toast.makeText(this, "onTap error", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    @Override
+    public boolean onLongClick(View v) {
+        if (genresListFragment != null) {
+            genresListFragment.onFabButtonLongTap();
+        } else {
+            Toast.makeText(this, "onTap error", Toast.LENGTH_SHORT).show();
+        }
+        return true;
     }
 }

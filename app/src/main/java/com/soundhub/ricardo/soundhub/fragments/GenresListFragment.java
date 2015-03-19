@@ -41,9 +41,14 @@ public class GenresListFragment extends Fragment implements OnItemClickListener,
 
 
     /**
-     * Which item is currently playing
+     * Which item is currently selected and playing
      */
     private int isPlaying;
+
+    /**
+     * Which track is currently playing
+     */
+    private int trackNr;
 
     /**
      * Player to stream for uri
@@ -59,12 +64,6 @@ public class GenresListFragment extends Fragment implements OnItemClickListener,
     public GenresListFragment() {
     }
 
-    public static GenresListFragment newInstance(OnPlayerStatusChanged listener) {
-        GenresListFragment fragment = new GenresListFragment();
-        playerStatusListener = listener;
-        return fragment;
-    }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -78,14 +77,15 @@ public class GenresListFragment extends Fragment implements OnItemClickListener,
 
         clearStatistics();
 
+
         mAdapter = new GenresListAdapter(items, this, getActivity());
         mRecyclerView.setAdapter(mAdapter);
 
+        trackNr = 0;
         return rootView;
     }
 
     private void dispatchPlayer() {
-
         Uri builtUri = Uri.parse(Utils.soundCloudBaseAddr).buildUpon()
                 .appendQueryParameter("client_id", Utils.clientKey)
                 .appendQueryParameter("genres", items.get(isPlaying).getGenreValue())
@@ -100,14 +100,15 @@ public class GenresListFragment extends Fragment implements OnItemClickListener,
     public void stopStream() {
         if (exoPlayer != null) {
             exoPlayer.stop();
+
             exoPlayer.release();
+            exoPlayer = null;
+
             mAdapter.notifyDataSetChanged();
             Toast.makeText(getActivity(), "Stopped", Toast.LENGTH_SHORT).show();
             playerStatusListener.onPlayerStopped();
             return;
         }
-
-
         Toast.makeText(getActivity(), "Not playing", Toast.LENGTH_SHORT).show();
     }
 
@@ -208,36 +209,33 @@ public class GenresListFragment extends Fragment implements OnItemClickListener,
     public void onSuccess(ArrayList<TrackLookupResponse> result) {
         playQueue = result;
 
-        Uri builtUri = Uri.parse(result.get(0).getStream_url()).buildUpon()
+        Uri builtUri = Uri.parse(result.get(trackNr++).getStream_url()).buildUpon()
                 .appendQueryParameter("client_id", Utils.clientKey)
                 .build();
 
         // Build the ExoPlayer and start playback
-        releasePlayer();
         attatchPlayer(builtUri);
     }
 
     private void attatchPlayer(Uri builtUri) {
+        if (exoPlayer != null) {
+            stopStream();
+        }
+
+        this.onResume();
+        Log.e("URI", builtUri.toString());
+        playerStatusListener.onPlayerStopped();
 
         // Build the sample source
         FrameworkSampleSource sampleSource = new FrameworkSampleSource(getActivity(), builtUri, null, 1);
 
         // Build the track renderers
-        TrackRenderer audioRenderer = new MediaCodecAudioTrackRenderer(sampleSource, null, true);
+        MediaCodecAudioTrackRenderer audioRenderer = new MediaCodecAudioTrackRenderer(sampleSource, null, true);
 
-        exoPlayer = ExoPlayer.Factory.newInstance(1);
-        exoPlayer.addListener(this);
         exoPlayer.prepare(audioRenderer);
         exoPlayer.setPlayWhenReady(true);
 
-        playerStatusListener.onFeedbackAvailable(items.get(isPlaying).getGenreValue());
-    }
-
-    private void releasePlayer() {
-        if (exoPlayer != null) {
-            exoPlayer.stop();
-            exoPlayer.release();
-        }
+        playerStatusListener.onFeedbackAvailable(items.get(trackNr).getGenreValue());
     }
 
     @Override
@@ -264,16 +262,28 @@ public class GenresListFragment extends Fragment implements OnItemClickListener,
                 break;
 
             case ExoPlayer.STATE_READY:
-                playerStatusListener.onFeedbackAvailable("Playing " + items.get(isPlaying).getGenreValue());
+                playerStatusListener.onFeedbackAvailable("Playing " + items.get(trackNr).getGenreValue());
                 playerStatusListener.onPlayerStart();
                 break;
 
             case ExoPlayer.STATE_ENDED:
                 playerStatusListener.onFeedbackAvailable("Finished");
+                playNextInQueue();
                 break;
 
             case ExoPlayer.STATE_IDLE:
                 break;
+        }
+    }
+
+    public void playNextInQueue() {
+
+        playerStatusListener.onFeedbackAvailable("Switching songs...");
+        playerStatusListener.onPlayerStopped();
+
+        if (playQueue.size() > 0 &&
+                trackNr < playQueue.size()-2) {
+            attatchPlayer(Uri.parse(playQueue.get(trackNr).getStream_url() + "&client_id=" + Utils.clientKey));
         }
     }
 
@@ -285,14 +295,25 @@ public class GenresListFragment extends Fragment implements OnItemClickListener,
     public void onPlayerError(ExoPlaybackException error) {
         Toast.makeText(getActivity(), error.toString(), Toast.LENGTH_LONG).show();
         Log.e("PlayerError", error.toString());
-        playerStatusListener.onFeedbackAvailable("Error");
-        releasePlayer();
+        playerStatusListener.onFeedbackAvailable("Error " + error.getMessage());
     }
 
     @Override
     public void onPause() {
-
         super.onPause();
+        if (exoPlayer != null) {
+            exoPlayer.release();
+        }
+    }
+
+    @Override
+    public void onResume() {
+
+        if (exoPlayer == null) {
+            exoPlayer = ExoPlayer.Factory.newInstance(1);
+            exoPlayer.addListener(this);
+        }
+        super.onResume();
     }
 
     @Override
@@ -307,6 +328,15 @@ public class GenresListFragment extends Fragment implements OnItemClickListener,
     }
 
     public void onFabButtonTap() {
-        playerStatusListener.onFeedbackAvailable("MESSAGE ABAILABLE OH BITCHA");
+
+        Uri builtUri = Uri.parse(playQueue.get(trackNr++).getStream_url()).buildUpon()
+                .appendQueryParameter("client_id", Utils.clientKey)
+                .build();
+
+        attatchPlayer(builtUri);
+    }
+
+    public void onFabButtonLongTap() {
+
     }
 }
