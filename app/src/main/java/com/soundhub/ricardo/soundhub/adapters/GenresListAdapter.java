@@ -19,11 +19,14 @@ import android.view.animation.AnimationUtils;
 import android.widget.TextView;
 
 import com.soundhub.ricardo.soundhub.R;
+import com.soundhub.ricardo.soundhub.Utils.Utils;
 import com.soundhub.ricardo.soundhub.interfaces.OnGenreItemChanged;
 import com.soundhub.ricardo.soundhub.interfaces.OnItemClickListener;
 import com.soundhub.ricardo.soundhub.models.GenreItem;
+import com.soundhub.ricardo.soundhub.models.TrackLookupResponse;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 
 public class GenresListAdapter  extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
@@ -49,46 +52,60 @@ public class GenresListAdapter  extends RecyclerView.Adapter<RecyclerView.ViewHo
 
         View v;
 
-        v = LayoutInflater.from(parent.getContext()).inflate(
-                R.layout.item_genre, parent, false);
-        return new GenreItemViewHolder(v);
+        switch (viewType) {
+            case Utils.VIEW_TYPE_GENRE_ITEM:
+            v = LayoutInflater.from(parent.getContext()).inflate(
+                    R.layout.item_genre, parent, false);
+            return new GenreItemViewHolder(v);
+        }
+        return null;
     }
 
     @Override
     public void onBindViewHolder(final RecyclerView.ViewHolder holder, int position) {
 
-            //holder.tvTal.setText
-        GenreItem item = items.get(position);
+        int viewType = getItemViewType(position);
+        switch (viewType) {
+            case Utils.VIEW_TYPE_TRACK_INFO:
+                break;
+            case Utils.VIEW_TYPE_GENRE_ITEM:
+                GenreItem item = (GenreItem) items.get(position);
 
-        ((GenreItemViewHolder) holder).tvItemValue.setText(item.getGenreValue());
+                ((GenreItemViewHolder) holder).tvItemValue.setText(item.getGenreValue());
 
-        if (item.getSingers().size() != 0) {
-            ((GenreItemViewHolder) holder).tvItemArtists.setVisibility(View.VISIBLE);
-            ((GenreItemViewHolder) holder).tvItemArtists.setText(item.getSingers().toString());
-        } else {
-            ((GenreItemViewHolder) holder).tvItemArtists.setVisibility(View.GONE);
+                if (item.getSingers().size() != 0) {
+                    ((GenreItemViewHolder) holder).tvItemArtists.setVisibility(View.VISIBLE);
+                    ((GenreItemViewHolder) holder).tvItemArtists.setText(item.getSingers().toString());
+                } else {
+                    ((GenreItemViewHolder) holder).tvItemArtists.setVisibility(View.GONE);
+                }
+
+                if (item.getPlayCount() > 0) {
+                    ((GenreItemViewHolder) holder).tvItemPlayCount.setVisibility(View.VISIBLE);
+                    ((GenreItemViewHolder) holder).tvItemPlayCount.setText("Played: " + item.getPlayCount());
+                } else {
+                    ((GenreItemViewHolder) holder).tvItemPlayCount.setVisibility(View.GONE);
+                }
+
+                if (item.isNowPlaying()) {
+                    ((GenreItemViewHolder) holder).tvNowPlaying.setVisibility(View.VISIBLE);
+                } else {
+                    ((GenreItemViewHolder) holder).tvNowPlaying.setVisibility(View.GONE);
+                }
+
+                ((GenreItemViewHolder) holder).tvItemLastPlayed.setText("Last played: " + item.getLastPlayed());
+                break;
+
         }
-
-        if (item.getPlayCount() > 0) {
-            ((GenreItemViewHolder) holder).tvItemPlayCount.setVisibility(View.VISIBLE);
-            ((GenreItemViewHolder) holder).tvItemPlayCount.setText("Played: " + item.getPlayCount());
-        } else {
-            ((GenreItemViewHolder) holder).tvItemPlayCount.setVisibility(View.GONE);
-        }
-
-        if (item.isNowPlaying()) {
-            ((GenreItemViewHolder) holder).tvNowPlaying.setVisibility(View.VISIBLE);
-        } else {
-            ((GenreItemViewHolder) holder).tvNowPlaying.setVisibility(View.GONE);
-        }
-        ((GenreItemViewHolder) holder).tvItemLastPlayed.setText("Last played: " + item.getLastPlayed());
-
     }
 
 
     @Override
     public int getItemViewType(int position) {
-        return 0;
+        //if (position == 0)
+        //    return Utils.VIEW_TYPE_TRACK_INFO;
+
+        return Utils.VIEW_TYPE_GENRE_ITEM;
     }
 
     @Override
@@ -129,17 +146,6 @@ public class GenresListAdapter  extends RecyclerView.Adapter<RecyclerView.ViewHo
         @Override
         public boolean onLongClick(View v) {
             return false;
-        }
-    }
-
-    private void setAnimation(View viewToAnimate, int position)
-    {
-        // If the bound view wasn't previously displayed on screen, it's animated
-        if (position > lastPosition)
-        {
-            Animation animation = AnimationUtils.loadAnimation(context, android.R.anim.slide_in_left);
-            viewToAnimate.startAnimation(animation);
-            lastPosition = position;
         }
     }
 

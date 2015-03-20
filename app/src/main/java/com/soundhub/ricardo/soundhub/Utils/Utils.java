@@ -19,6 +19,10 @@ public class Utils {
     public static final Type ARRAY_GENRE_ITEMS_RESPONSE = new TypeToken<ArrayList<TrackLookupResponse>>(){}.getType();
     public static final String GENRE_STATS_ENTRY = "genre_statistics";
 
+    /*---------------------------VIEW TYPES--------------------------------*/
+    public static final int VIEW_TYPE_TRACK_INFO = 0;
+    public static final int VIEW_TYPE_GENRE_ITEM = 1;
+
     public static final String[] genres = {
             "80s"                  , "Acid Jazz"          , "Acoustic Rock"      , "African"
             , "Alternative"        , "Ambient"            , "Americana"          ,"Arabic"
@@ -46,4 +50,5 @@ public class Utils {
             ,"Singer / Songwriter" ,"Smooth Jazz"         ,"Soul"                ,"Synth Pop"
             ,"Tech House"          ,"Techno"              ,"Thrash Metal"        ,"Trance"
             ,"Trap"                ,"Trip-hop"            ,"Turntablism" };
+
 }

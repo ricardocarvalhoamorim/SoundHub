@@ -15,6 +15,16 @@ public class GenreItem {
     private boolean nowPlaying;
     private String lastPlayed;
     private int playCount;
+    private TrackLookupResponse currentTrack;
+
+
+    public TrackLookupResponse getCurrentTrack() {
+        return currentTrack;
+    }
+
+    public void setCurrentTrack(TrackLookupResponse currentTrack) {
+        this.currentTrack = currentTrack;
+    }
 
     public String getGenreValue() {
         return GenreValue;

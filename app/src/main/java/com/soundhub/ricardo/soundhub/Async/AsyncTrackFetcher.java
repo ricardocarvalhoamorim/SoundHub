@@ -2,6 +2,7 @@ package com.soundhub.ricardo.soundhub.Async;
 
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.util.Log;
 
 import com.google.gson.Gson;
 import com.soundhub.ricardo.soundhub.Utils.Utils;
@@ -47,6 +48,7 @@ public class AsyncTrackFetcher extends AsyncTask<Uri, Void, ArrayList<TrackLooku
             response = client.execute(request);
             String result = EntityUtils.toString(response.getEntity());
 
+            Log.e("RES:", result);
             return new Gson().fromJson(result, Utils.ARRAY_GENRE_ITEMS_RESPONSE);
         } catch (Exception e) {
             error = e;

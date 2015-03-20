@@ -21,13 +21,24 @@
     <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="app: com.soundhub.ricardo.soundhub" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f25fbfea-f6e9-48ec-8923-8194c139740f" name="Default" comment="">
+    <list default="true" id="f25fbfea-f6e9-48ec-8923-8194c139740f" name="Default" comment="Improved track skipping behaviour, but still needs additional checks">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/glide_3_5_2.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/layout/item_track_info.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/soundhub/ricardo/soundhub/Async/AsyncTrackFetcher.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/soundhub/ricardo/soundhub/Async/AsyncTrackFetcher.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/soundhub/ricardo/soundhub/models/GenreItem.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/soundhub/ricardo/soundhub/models/GenreItem.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/soundhub/ricardo/soundhub/adapters/GenresListAdapter.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/soundhub/ricardo/soundhub/adapters/GenresListAdapter.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/soundhub/ricardo/soundhub/fragments/GenresListFragment.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/soundhub/ricardo/soundhub/fragments/GenresListFragment.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/soundhub/ricardo/soundhub/MainActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/soundhub/ricardo/soundhub/MainActivity.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/soundhub/ricardo/soundhub/interfaces/OnPlayerStatusChanged.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/soundhub/ricardo/soundhub/interfaces/OnPlayerStatusChanged.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/soundhub/ricardo/soundhub/Utils/Utils.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/soundhub/ricardo/soundhub/Utils/Utils.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/app.iml" afterPath="$PROJECT_DIR$/app/app.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build.gradle" afterPath="$PROJECT_DIR$/app/build.gradle" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/cardview_v7_21_0_3.xml" afterPath="$PROJECT_DIR$/.idea/libraries/cardview_v7_21_0_3.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/com_android_volley_2015_02_02.xml" afterPath="$PROJECT_DIR$/.idea/libraries/com_android_volley_2015_02_02.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/exoplayer_1_0_13_10.xml" afterPath="$PROJECT_DIR$/.idea/libraries/exoplayer_1_0_13_10.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/gson_2_3_1.xml" afterPath="$PROJECT_DIR$/.idea/libraries/gson_2_3_1.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout-v21/item_genre.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout-v21/item_genre.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/recyclerview_v7_21_0_3.xml" afterPath="$PROJECT_DIR$/.idea/libraries/recyclerview_v7_21_0_3.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/support_annotations_21_0_3.xml" afterPath="$PROJECT_DIR$/.idea/libraries/support_annotations_21_0_3.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/support_v4_21_0_3.xml" afterPath="$PROJECT_DIR$/.idea/libraries/support_v4_21_0_3.xml" />
@@ -54,14 +65,18 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="GenresListFragment.java" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="GenresListFragment.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/soundhub/ricardo/soundhub/fragments/GenresListFragment.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.37757438" vertical-offset="5428" max-vertical-offset="5865">
-              <caret line="331" column="56" selection-start-line="331" selection-start-column="47" selection-end-line="331" selection-end-column="56" />
+            <state vertical-scroll-proportion="-6.888889" vertical-offset="5917" max-vertical-offset="6443">
+              <caret line="359" column="0" selection-start-line="359" selection-start-column="0" selection-end-line="359" selection-end-column="0" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#4809#4852#0" expanded="true" />
+                <element signature="e#2615#3196#0" expanded="true" />
+                <element signature="e#3185#3186#0" expanded="true" />
+                <element signature="e#5374#5417#0" expanded="true" />
+                <element signature="e#8435#8436#0" expanded="true" />
+                <element signature="e#8485#8486#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -70,19 +85,49 @@
       <file leaf-file-name="AsyncTrackFetcher.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/soundhub/ricardo/soundhub/Async/AsyncTrackFetcher.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="986">
-              <caret line="21" column="0" selection-start-line="21" selection-start-column="0" selection-end-line="21" selection-end-column="0" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="51" max-vertical-offset="1003">
+              <caret line="50" column="34" selection-start-line="50" selection-start-column="34" selection-end-line="50" selection-end-column="34" />
               <folding />
             </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Utils.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/soundhub/ricardo/soundhub/Utils/Utils.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="257" max-vertical-offset="935">
+              <caret line="22" column="53" selection-start-line="22" selection-start-column="53" selection-end-line="22" selection-end-column="53" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="activity_main.xml" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.8788599" vertical-offset="174" max-vertical-offset="1666">
+              <caret line="32" column="53" selection-start-line="32" selection-start-column="53" selection-end-line="32" selection-end-column="53" />
+              <folding>
+                <element signature="e#1401#1420#0" expanded="true" />
+                <element signature="e#2074#2093#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+          <provider editor-type-id="android-designer">
+            <state />
           </provider>
         </entry>
       </file>
       <file leaf-file-name="MainActivity.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/soundhub/ricardo/soundhub/MainActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="1382" max-vertical-offset="1921">
-              <caret line="110" column="38" selection-start-line="110" selection-start-column="38" selection-end-line="110" selection-end-column="38" />
-              <folding />
+            <state vertical-scroll-proportion="0.0" vertical-offset="1549" max-vertical-offset="2482">
+              <caret line="117" column="25" selection-start-line="117" selection-start-column="10" selection-end-line="117" selection-end-column="25" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#3570#3571#0" expanded="true" />
+                <element signature="e#3616#3617#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -1081,7 +1126,7 @@
     </option>
     <option name="modificationStamps">
       <map>
-        <entry key="$PROJECT_DIR$" value="4279987085979" />
+        <entry key="$PROJECT_DIR$" value="4280078639929" />
       </map>
     </option>
     <option name="projectBuildClasspath">
@@ -1254,8 +1299,9 @@
                             <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.google.code.gson/gson/2.3.1/ecb6e1f8e4b0e84c4b886c2f14a1500caf309757/gson-2.3.1.jar" />
                             <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/eu.the4thfloor.volley/com.android.volley/2015.02.02/f1e9b2fbd9299ffddcec09545257be92ec1cf6aa/com.android.volley-2015.02.02.jar" />
                             <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.github.shell-software/fab/1.0.5/f8eb422d5295efb7187adb3e2b11dbfc8f64ad1c/fab-1.0.5.aar" />
-                            <option value="$PROJECT_DIR$/../TOOLS/android-sdk/extras/android/m2repository/com/android/support/support-v4/21.0.3/support-v4-21.0.3.aar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.github.bumptech.glide/glide/3.5.2/ecf534dba3a8446ce84cbb797d314763be212a68/glide-3.5.2.jar" />
                             <option value="$PROJECT_DIR$/../TOOLS/android-sdk/extras/android/m2repository/com/android/support/support-annotations/21.0.3/support-annotations-21.0.3.jar" />
+                            <option value="$PROJECT_DIR$/../TOOLS/android-sdk/extras/android/m2repository/com/android/support/support-v4/21.0.3/support-v4-21.0.3.aar" />
                           </list>
                         </option>
                         <option name="path" value="$PROJECT_DIR$/app" />
@@ -1390,7 +1436,6 @@
         <option value="$PROJECT_DIR$/app/src/main/res/values/color.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/item_genre.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/values/styles.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/soundhub/ricardo/soundhub/models/GenreItem.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/soundhub/ricardo/soundhub/models/TrackLookupResponse.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/soundhub/ricardo/soundhub/models/ProgressUpdateItem.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/soundhub/ricardo/soundhub/interface/AsyncCustomTaskHandler.java" />
@@ -1404,12 +1449,18 @@
         <option value="$PROJECT_DIR$/app/src/main/java/com/soundhub/ricardo/soundhub/Utils.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/soundhub/ricardo/soundhub/interfaces/AsyncCustomTaskHandler.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/soundhub/ricardo/soundhub/AppController.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/soundhub/ricardo/soundhub/Async/AsyncTrackFetcher.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/values-v21/styles.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout-v21/item_genre.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/soundhub/ricardo/soundhub/interfaces/OnGenreItemChanged.java" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout-v21/item_genre.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/soundhub/ricardo/soundhub/models/GenreItem.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/soundhub/ricardo/soundhub/Utils/Utils.java" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/item_track_info.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/soundhub/ricardo/soundhub/adapters/GenresListAdapter.java" />
+        <option value="$PROJECT_DIR$/app/build.gradle" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/soundhub/ricardo/soundhub/interfaces/OnPlayerStatusChanged.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/soundhub/ricardo/soundhub/MainActivity.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/soundhub/ricardo/soundhub/Async/AsyncTrackFetcher.java" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/soundhub/ricardo/soundhub/fragments/GenresListFragment.java" />
       </list>
     </option>
@@ -1455,6 +1506,10 @@
               <option name="myItemId" value="SoundHub" />
               <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
             </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Gradle Scripts" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidBuildScriptsGroupNode" />
+            </PATH_ELEMENT>
           </PATH>
           <PATH>
             <PATH_ELEMENT>
@@ -1464,6 +1519,28 @@
             <PATH_ELEMENT>
               <option name="myItemId" value="app" />
               <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="res" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidResFolderNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="SoundHub" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="res" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidResFolderNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="layout" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidResFolderTypeNode" />
             </PATH_ELEMENT>
           </PATH>
           <PATH>
@@ -1508,8 +1585,48 @@
               <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="manifests" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidManifestsGroupNode" />
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidSourceTypeNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="soundhub" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidPsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Utils" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="SoundHub" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidSourceTypeNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="soundhub" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidPsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="interfaces" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="SoundHub" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
             </PATH_ELEMENT>
           </PATH>
         </subPane>
@@ -1530,7 +1647,7 @@
     <property name="android.project.structure.last.selected" value="app" />
     <property name="android.project.structure.proportion" value="0.15" />
     <property name="recentsLimit" value="5" />
-    <property name="SearchEverywhereHistoryKey" value="adapter&#9;FILE&#9;file:///home/ricardo/Development/SoundHub/app/src/main/java/com/soundhub/ricardo/soundhub/adapters/GenresListAdapter.java&#10;item&#9;FILE&#9;file:///home/ricardo/Development/SoundHub/app/src/main/res/layout-v21/item_genre.xml&#10;styl&#9;FILE&#9;file:///home/ricardo/Development/SoundHub/app/src/main/res/values-v21/styles.xml&#10;mani&#9;FILE&#9;file:///home/ricardo/Development/SoundHub/app/src/main/AndroidManifest.xml&#10;manif&#9;FILE&#9;file:///home/ricardo/Development/SoundHub/app/src/main/AndroidManifest.xml&#10;projec structure&#9;ACTION&#9;ShowProjectStructureSettings&#10;manifes&#9;FILE&#9;file:///home/ricardo/Development/SoundHub/app/src/main/AndroidManifest.xml&#10;uti&#9;FILE&#9;file:///home/ricardo/Development/SoundHub/app/src/main/java/com/soundhub/ricardo/soundhub/Utils.java&#10;project structure&#9;ACTION&#9;ShowProjectStructureSettings&#10;project stru&#9;ACTION&#9;ShowProjectStructureSettings&#10;gen&#9;FILE&#9;file:///home/ricardo/Development/SoundHub/app/src/main/java/com/soundhub/ricardo/soundhub/models/GenreItem.java&#10;style&#9;FILE&#9;file:///home/ricardo/Development/SoundHub/app/src/main/res/values/styles.xml&#10;project str&#9;ACTION&#9;ShowProjectStructureSettings&#10;project struc&#9;ACTION&#9;ShowProjectStructureSettings" />
+    <property name="SearchEverywhereHistoryKey" value="asyn&#9;FILE&#9;file:///home/ricardo/Development/SoundHub/app/src/main/java/com/soundhub/ricardo/soundhub/Async/AsyncTrackFetcher.java&#10;main&#9;FILE&#9;file:///home/ricardo/Development/SoundHub/app/src/main/java/com/soundhub/ricardo/soundhub/MainActivity.java&#10;item&#9;FILE&#9;file:///home/ricardo/Development/SoundHub/app/src/main/res/layout-v21/item_genre.xml&#10;styl&#9;FILE&#9;file:///home/ricardo/Development/SoundHub/app/src/main/res/values-v21/styles.xml&#10;style&#9;FILE&#9;file:///home/ricardo/Development/SoundHub/app/src/main/res/values-v21/styles.xml&#10;adapter&#9;FILE&#9;file:///home/ricardo/Development/SoundHub/app/src/main/java/com/soundhub/ricardo/soundhub/adapters/GenresListAdapter.java&#10;mani&#9;FILE&#9;file:///home/ricardo/Development/SoundHub/app/src/main/AndroidManifest.xml&#10;manif&#9;FILE&#9;file:///home/ricardo/Development/SoundHub/app/src/main/AndroidManifest.xml&#10;projec structure&#9;ACTION&#9;ShowProjectStructureSettings&#10;manifes&#9;FILE&#9;file:///home/ricardo/Development/SoundHub/app/src/main/AndroidManifest.xml&#10;uti&#9;FILE&#9;file:///home/ricardo/Development/SoundHub/app/src/main/java/com/soundhub/ricardo/soundhub/Utils.java&#10;project structure&#9;ACTION&#9;ShowProjectStructureSettings&#10;project stru&#9;ACTION&#9;ShowProjectStructureSettings&#10;gen&#9;FILE&#9;file:///home/ricardo/Development/SoundHub/app/src/main/java/com/soundhub/ricardo/soundhub/models/GenreItem.java&#10;project str&#9;ACTION&#9;ShowProjectStructureSettings&#10;project struc&#9;ACTION&#9;ShowProjectStructureSettings" />
     <property name="ANDROID_EXTENDED_DEVICE_CHOOSER_SERIALS" value="09f767a3" />
     <property name="ANDROID_EXTENDED_DEVICE_CHOOSER_AVD" value="Nexus_S_GOOGLE_API_21" />
     <property name="LayoutCode.rearrangeEntriesJava" value="false" />
@@ -1745,7 +1862,11 @@
       <created>1426698042357</created>
       <updated>1426698042357</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="Improved track skipping behaviour, but still needs additional checks">
+      <created>1426791413075</created>
+      <updated>1426791413075</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -1761,10 +1882,11 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4609929" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32907802" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3206785" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" x="0" y="14" width="1280" height="796" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.30638298" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32907802" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Android" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="FLOATING" visible="true" weight="0.4141844" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" x="1270" y="-14" width="1300" height="1048" />
+      <window_info id="Android" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32765958" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" x="1270" y="-14" width="1300" height="1048" />
       <window_info id="Gradle Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.18336026" sideWeight="0.5" order="3" side_tool="false" content_ui="combo" />
@@ -1772,14 +1894,13 @@
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32907802" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2851064" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.2851064" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.21486267" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
   <component name="Vcs.Log.UiProperties">
@@ -1803,54 +1924,23 @@
     <MESSAGE value="Updated click handling to enable a single item to be palying" />
     <MESSAGE value="Player no fetches tracks from the selected genre and plays the first one. Added task to request the tracks from a specific genre. Added listener to manage the player state. Added AppController to hold the future volley integration (for some reason volley was failing at making the request and managing the result - the answer was always empty). Added correspondant models for each of the involved objects (lookup responses and items)" />
     <MESSAGE value="Changed adapter behaviour when playing a track. Small tweaks" />
-    <option name="LAST_COMMIT_MESSAGE" value="Changed adapter behaviour when playing a track. Small tweaks" />
+    <MESSAGE value="Improved track skipping behaviour, but still needs additional checks" />
+    <option name="LAST_COMMIT_MESSAGE" value="Improved track skipping behaviour, but still needs additional checks" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/app/src/main/java/com/soundhub/ricardo/soundhub/fragments/GenresListFragment.java</url>
-          <line>331</line>
+          <url>file://$PROJECT_DIR$/app/src/main/java/com/soundhub/ricardo/soundhub/Async/AsyncTrackFetcher.java</url>
+          <line>51</line>
           <properties />
-          <option name="timeStamp" value="19" />
+          <option name="timeStamp" value="26" />
         </line-breakpoint>
       </breakpoints>
-      <option name="time" value="20" />
+      <option name="time" value="27" />
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout-v21/item_genre.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="658" max-vertical-offset="1173">
-          <caret line="61" column="51" selection-start-line="61" selection-start-column="51" selection-end-line="61" selection-end-column="51" />
-          <folding />
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/soundhub/ricardo/soundhub/adapters/GenresListAdapter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="731" max-vertical-offset="2584">
-          <caret line="43" column="33" selection-start-line="43" selection-start-column="33" selection-end-line="43" selection-end-column="33" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/soundhub/ricardo/soundhub/interfaces/OnGenreItemChanged.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="119" max-vertical-offset="255">
-          <caret line="7" column="46" selection-start-line="7" selection-start-column="46" selection-end-line="7" selection-end-column="46" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/soundhub/ricardo/soundhub/interfaces/AsyncCustomTaskHandler.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="391">
-          <caret line="10" column="36" selection-start-line="10" selection-start-column="4" selection-end-line="10" selection-end-column="36" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/soundhub/ricardo/soundhub/Utils/Utils.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="306" max-vertical-offset="935">
@@ -1872,7 +1962,11 @@
           <caret line="249" column="36" selection-start-line="249" selection-start-column="36" selection-end-line="249" selection-end-column="36" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#4809#4852#0" expanded="true" />
+            <element signature="e#2615#3196#0" expanded="true" />
+            <element signature="e#3185#3186#0" expanded="true" />
+            <element signature="e#5374#5417#0" expanded="true" />
+            <element signature="e#8435#8436#0" expanded="true" />
+            <element signature="e#8485#8486#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1945,7 +2039,11 @@
           <caret line="60" column="13" selection-start-line="60" selection-start-column="13" selection-end-line="60" selection-end-column="13" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#4809#4852#0" expanded="true" />
+            <element signature="e#2615#3196#0" expanded="true" />
+            <element signature="e#3185#3186#0" expanded="true" />
+            <element signature="e#5374#5417#0" expanded="true" />
+            <element signature="e#8435#8436#0" expanded="true" />
+            <element signature="e#8485#8486#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1972,7 +2070,11 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="901">
           <caret line="45" column="5" selection-start-line="45" selection-start-column="5" selection-end-line="45" selection-end-column="5" />
-          <folding />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#3570#3571#0" expanded="true" />
+            <element signature="e#3616#3617#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -2039,17 +2141,6 @@
         <state />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_main.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.6357143" vertical-offset="5" max-vertical-offset="425">
-          <caret line="16" column="39" selection-start-line="16" selection-start-column="39" selection-end-line="16" selection-end-column="39" />
-          <folding />
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer">
-        <state />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/values/color.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.19058296" vertical-offset="0" max-vertical-offset="446">
@@ -2070,25 +2161,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="272">
           <caret line="3" column="53" selection-start-line="3" selection-start-column="53" selection-end-line="3" selection-end-column="53" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.1559633" vertical-offset="0" max-vertical-offset="327">
-          <caret line="3" column="23" selection-start-line="3" selection-start-column="23" selection-end-line="3" selection-end-column="23" />
-          <folding />
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/soundhub/ricardo/soundhub/models/GenreItem.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="293" max-vertical-offset="833">
-          <caret line="38" column="16" selection-start-line="38" selection-start-column="16" selection-end-line="38" selection-end-column="16" />
           <folding />
         </state>
       </provider>
@@ -2122,21 +2194,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/soundhub/ricardo/soundhub/models/TrackLookupResponse.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.2852349" vertical-offset="0" max-vertical-offset="1139">
-          <caret line="5" column="13" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/soundhub/ricardo/soundhub/Utils/Utils.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="122" max-vertical-offset="850">
-          <caret line="18" column="93" selection-start-line="18" selection-start-column="93" selection-end-line="18" selection-end-column="93" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/../TOOLS/android-sdk/sources/android-21/android/os/AsyncTask.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="4253" max-vertical-offset="10710">
@@ -2158,52 +2215,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/soundhub/ricardo/soundhub/adapters/GenresListAdapter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="187" max-vertical-offset="2125">
-          <caret line="43" column="33" selection-start-line="43" selection-start-column="33" selection-end-line="43" selection-end-column="33" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/soundhub/ricardo/soundhub/interfaces/OnGenreItemChanged.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="255">
           <caret line="7" column="46" selection-start-line="7" selection-start-column="46" selection-end-line="7" selection-end-column="46" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout-v21/item_genre.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="658" max-vertical-offset="1173">
-          <caret line="61" column="51" selection-start-line="61" selection-start-column="51" selection-end-line="61" selection-end-column="51" />
-          <folding />
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/values-v21/styles.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="306">
-          <caret line="3" column="43" selection-start-line="3" selection-start-column="43" selection-end-line="3" selection-end-column="43" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/soundhub/ricardo/soundhub/Async/AsyncTrackFetcher.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="986">
-          <caret line="21" column="0" selection-start-line="21" selection-start-column="0" selection-end-line="21" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/soundhub/ricardo/soundhub/interfaces/OnPlayerStatusChanged.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.4347826" vertical-offset="0" max-vertical-offset="391">
-          <caret line="10" column="16" selection-start-line="10" selection-start-column="16" selection-end-line="10" selection-end-column="16" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -2215,23 +2230,161 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/../TOOLS/android-sdk/sources/android-21/android/widget/MediaController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.32285115" vertical-offset="424" max-vertical-offset="11441">
+          <caret line="71" column="13" selection-start-line="71" selection-start-column="13" selection-end-line="71" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/soundhub/ricardo/soundhub/models/GenreItem.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="172" max-vertical-offset="1003">
+          <caret line="27" column="0" selection-start-line="27" selection-start-column="0" selection-end-line="27" selection-end-column="0" />
+          <folding>
+            <element signature="e#468#469#0" expanded="false" />
+            <element signature="e#503#504#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/soundhub/ricardo/soundhub/models/TrackLookupResponse.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.3207547" vertical-offset="0" max-vertical-offset="1139">
+          <caret line="9" column="19" selection-start-line="9" selection-start-column="19" selection-end-line="9" selection-end-column="19" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.android.support/recyclerview-v7/21.0.3/classes.jar!/android/support/v7/widget/LinearLayoutManager.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.35079727" vertical-offset="2600" max-vertical-offset="4505">
+          <caret line="163" column="15" selection-start-line="163" selection-start-column="15" selection-end-line="163" selection-end-column="15" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/build.gradle">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-15.0" vertical-offset="152" max-vertical-offset="663">
+          <caret line="31" column="51" selection-start-line="31" selection-start-column="51" selection-end-line="31" selection-end-column="51" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/item_track_info.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-3.9230769" vertical-offset="0" max-vertical-offset="272">
+          <caret line="6" column="38" selection-start-line="6" selection-start-column="25" selection-end-line="6" selection-end-column="38" />
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout-v21/item_genre.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.038812786" vertical-offset="0" max-vertical-offset="1275">
+          <caret line="1" column="0" selection-start-line="1" selection-start-column="0" selection-end-line="9" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/soundhub/ricardo/soundhub/adapters/GenresListAdapter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="419" max-vertical-offset="2210">
+          <caret line="54" column="27" selection-start-line="54" selection-start-column="27" selection-end-line="54" selection-end-column="27" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/values-v21/styles.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.3207547" vertical-offset="0" max-vertical-offset="477">
+          <caret line="9" column="0" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_main.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.60310423" vertical-offset="0" max-vertical-offset="451">
+          <caret line="16" column="39" selection-start-line="16" selection-start-column="39" selection-end-line="16" selection-end-column="39" />
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/soundhub/ricardo/soundhub/interfaces/OnPlayerStatusChanged.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.30088496" vertical-offset="0" max-vertical-offset="678">
+          <caret line="12" column="16" selection-start-line="12" selection-start-column="16" selection-end-line="12" selection-end-column="16" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/soundhub/ricardo/soundhub/MainActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="1382" max-vertical-offset="1921">
-          <caret line="110" column="38" selection-start-line="110" selection-start-column="38" selection-end-line="110" selection-end-column="38" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="1549" max-vertical-offset="2482">
+          <caret line="117" column="25" selection-start-line="117" selection-start-column="10" selection-end-line="117" selection-end-column="25" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#3570#3571#0" expanded="true" />
+            <element signature="e#3616#3617#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/soundhub/ricardo/soundhub/Utils/Utils.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="257" max-vertical-offset="935">
+          <caret line="22" column="53" selection-start-line="22" selection-start-column="53" selection-end-line="22" selection-end-column="53" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/soundhub/ricardo/soundhub/Async/AsyncTrackFetcher.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="51" max-vertical-offset="1003">
+          <caret line="50" column="34" selection-start-line="50" selection-start-column="34" selection-end-line="50" selection-end-column="34" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/soundhub/ricardo/soundhub/fragments/GenresListFragment.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.37757438" vertical-offset="5428" max-vertical-offset="5865">
-          <caret line="331" column="56" selection-start-line="331" selection-start-column="47" selection-end-line="331" selection-end-column="56" />
+        <state vertical-scroll-proportion="-6.888889" vertical-offset="5917" max-vertical-offset="6443">
+          <caret line="359" column="0" selection-start-line="359" selection-start-column="0" selection-end-line="359" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#4809#4852#0" expanded="true" />
+            <element signature="e#2615#3196#0" expanded="true" />
+            <element signature="e#3185#3186#0" expanded="true" />
+            <element signature="e#5374#5417#0" expanded="true" />
+            <element signature="e#8435#8436#0" expanded="true" />
+            <element signature="e#8485#8486#0" expanded="true" />
           </folding>
         </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.8788599" vertical-offset="174" max-vertical-offset="1666">
+          <caret line="32" column="53" selection-start-line="32" selection-start-column="53" selection-end-line="32" selection-end-column="53" />
+          <folding>
+            <element signature="e#1401#1420#0" expanded="true" />
+            <element signature="e#2074#2093#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer">
+        <state />
       </provider>
     </entry>
   </component>
