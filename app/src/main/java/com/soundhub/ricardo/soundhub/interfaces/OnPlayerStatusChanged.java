@@ -1,5 +1,6 @@
 package com.soundhub.ricardo.soundhub.interfaces;
 
+import com.soundhub.ricardo.soundhub.models.GenreItem;
 import com.soundhub.ricardo.soundhub.models.TrackLookupResponse;
 
 /**
@@ -7,9 +8,6 @@ import com.soundhub.ricardo.soundhub.models.TrackLookupResponse;
  */
 public interface OnPlayerStatusChanged {
 
-    public void onPlayerStart(TrackLookupResponse trackLookupResponse);
-    public void onPlayerBuffering();
-    public void onPlayerPaused();
-    public void onPlayerStopped();
+    public void onGenreSelected(GenreItem selection);
     public void onListScroll(int visibility);
 }

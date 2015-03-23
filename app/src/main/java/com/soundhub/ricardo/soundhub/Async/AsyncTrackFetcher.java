@@ -48,7 +48,6 @@ public class AsyncTrackFetcher extends AsyncTask<Uri, Void, ArrayList<TrackLooku
             response = client.execute(request);
             String result = EntityUtils.toString(response.getEntity());
 
-            Log.e("RES:", result);
             return new Gson().fromJson(result, Utils.ARRAY_GENRE_ITEMS_RESPONSE);
         } catch (Exception e) {
             error = e;

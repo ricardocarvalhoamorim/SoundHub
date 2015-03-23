@@ -3,9 +3,19 @@
     android:layout_height="match_parent"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <ProgressBar
+        style="@android:style/Widget.Material.ProgressBar.Horizontal"
+        android:id="@+id/playback_progress"
+        android:layout_alignParentTop="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/primary"
+        android:progress="87"
+        />
+
     <LinearLayout
         android:id="@+id/player_header"
-        android:layout_alignParentTop="true"
+        android:layout_below="@id/playback_progress"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
@@ -80,11 +90,6 @@
                     android:text="Favoritings"
                     android:layout_height="wrap_content" />
 
-                <ProgressBar
-                    style="@android:style/Widget.Holo.ProgressBar.Horizontal"
-                    android:progress="31"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>
@@ -104,7 +109,8 @@
 
         <com.software.shell.fab.ActionButton xmlns:fab="http://schemas.android.com/apk/res-auto"
             android:id="@+id/action_button_skip"
-            fab:type="DEFAULT"
+            fab:type="mini"
+            android:layout_gravity="center_horizontal"
             fab:button_color="@color/fab_material_teal_500"
             fab:button_colorPressed="@color/fab_material_teal_900"
             fab:image="@android:drawable/ic_media_next"
@@ -114,18 +120,22 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/fab_margin"
+            fab:stroke_color="@color/fab_material_teal_900"
+            fab:stroke_width="1.0dp"
             />
 
         <com.software.shell.fab.ActionButton xmlns:fab="http://schemas.android.com/apk/res-auto"
             android:id="@+id/action_button_play"
             fab:type="DEFAULT"
-            fab:button_color="@color/fab_material_orange_500"
-            fab:button_colorPressed="@color/fab_material_orange_900"
+            fab:button_color="@color/fab_material_teal_500"
+            fab:button_colorPressed="@color/fab_material_teal_900"
             fab:image="@android:drawable/ic_media_pause"
             fab:image_size="24dp"
             fab:show_animation="@anim/fab_roll_from_right"
             fab:hide_animation="@anim/fab_roll_to_right"
             android:layout_width="wrap_content"
+            fab:stroke_color="@color/fab_material_teal_900"
+            fab:stroke_width="1.0dp"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/fab_margin"
             />
