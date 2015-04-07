@@ -1,8 +1,7 @@
-package com.soundhub.ricardo.soundhub.Async;
+package com.soundhub.ricardo.soundhub.async;
 
 import android.net.Uri;
 import android.os.AsyncTask;
-import android.util.Log;
 
 import com.google.gson.Gson;
 import com.soundhub.ricardo.soundhub.Utils.Utils;

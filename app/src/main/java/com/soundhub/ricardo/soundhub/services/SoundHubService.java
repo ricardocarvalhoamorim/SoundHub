@@ -1,6 +1,10 @@
 package com.soundhub.ricardo.soundhub.services;
 
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.app.Service;
+import android.app.TaskStackBuilder;
+import android.content.Context;
 import android.content.Intent;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
@@ -8,9 +12,11 @@ import android.net.Uri;
 import android.os.Binder;
 import android.os.IBinder;
 import android.os.PowerManager;
+import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
 import com.soundhub.ricardo.soundhub.MainActivity;
+import com.soundhub.ricardo.soundhub.R;
 import com.soundhub.ricardo.soundhub.Utils.Utils;
 import com.soundhub.ricardo.soundhub.models.TrackLookupResponse;
 
@@ -31,7 +37,7 @@ public class SoundHubService extends Service implements
 
 
     @Override
-    public void onCreate(){
+    public void onCreate() {
         super.onCreate();
         trackPos=0;
         player = new MediaPlayer();
@@ -88,7 +94,7 @@ public class SoundHubService extends Service implements
         playeQueue = queue;
     }
 
-    public void playSong(){
+    public void playSong() {
         player.reset();
         TrackLookupResponse track = playeQueue.get(trackPos);
 
@@ -133,7 +139,7 @@ public class SoundHubService extends Service implements
 
 
     public class MusicBinder extends Binder {
-       public SoundHubService getService() {
+        public SoundHubService getService() {
             return SoundHubService.this;
         }
     }

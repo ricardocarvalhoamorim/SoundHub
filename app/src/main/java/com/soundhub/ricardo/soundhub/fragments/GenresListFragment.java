@@ -2,39 +2,20 @@ package com.soundhub.ricardo.soundhub.fragments;
 
 import android.app.Activity;
 import android.app.Fragment;
-import android.content.Context;
-import android.content.SharedPreferences;
-import android.media.MediaPlayer;
-import android.net.Uri;
-import android.opengl.Visibility;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Surface;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
-import com.google.android.exoplayer.ExoPlaybackException;
-import com.google.android.exoplayer.ExoPlayer;
-import com.google.android.exoplayer.FrameworkSampleSource;
-import com.google.android.exoplayer.MediaCodecAudioTrackRenderer;
-import com.google.android.exoplayer.MediaCodecTrackRenderer;
-import com.google.android.exoplayer.SampleSource;
-import com.google.android.exoplayer.TrackRenderer;
-import com.google.gson.Gson;
-import com.soundhub.ricardo.soundhub.Async.AsyncTrackFetcher;
 import com.soundhub.ricardo.soundhub.MainActivity;
 import com.soundhub.ricardo.soundhub.R;
-import com.soundhub.ricardo.soundhub.Utils.Utils;
+import com.soundhub.ricardo.soundhub.Utils.PrefsManager;
 import com.soundhub.ricardo.soundhub.adapters.GenresListAdapter;
-import com.soundhub.ricardo.soundhub.interfaces.AsyncCustomTaskHandler;
 import com.soundhub.ricardo.soundhub.interfaces.OnItemClickListener;
 import com.soundhub.ricardo.soundhub.interfaces.OnPlayerStatusChanged;
 import com.soundhub.ricardo.soundhub.models.GenreItem;
-import com.soundhub.ricardo.soundhub.models.ProgressUpdateItem;
 import com.soundhub.ricardo.soundhub.models.TrackLookupResponse;
 
 import java.util.ArrayList;
@@ -62,8 +43,7 @@ public class GenresListFragment extends Fragment implements OnItemClickListener 
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         mRecyclerView.setLayoutManager(layoutManager);
 
-        clearStatistics();
-
+        items = PrefsManager.getGenres(getActivity());
         mAdapter = new GenresListAdapter(items, this);
         mRecyclerView.setAdapter(mAdapter);
 
@@ -99,69 +79,8 @@ public class GenresListFragment extends Fragment implements OnItemClickListener 
 
     }
 
-    /**
-     * Removes the available statistics and set everything to zero
-     */
-    public void clearStatistics() {
 
-        SharedPreferences settings = getActivity().getSharedPreferences(
-                getResources().getString(R.string.app_name), Context.MODE_PRIVATE);
 
-        if (!settings.contains(Utils.GENRE_STATS_ENTRY)) {
-            dispatchBaseStatistics(settings);
-            return;
-        }
-
-        items = new Gson().fromJson(
-                settings.getString(Utils.GENRE_STATS_ENTRY, ""),
-                Utils.ARRAY_GENRE_ITEMS);
-
-        for (GenreItem item : items) {
-            item.setLastPlayed("");
-            item.setPlayCount(0);
-            item.setSingers(new ArrayList<String>());
-        }
-
-        SharedPreferences.Editor editor = settings.edit();
-        editor.putString(
-                Utils.GENRE_STATS_ENTRY,
-                new Gson().toJson(items));
-
-        editor.apply();
-
-        if (mAdapter == null) {
-            mAdapter = new GenresListAdapter(items, this);
-        } else {
-            mAdapter.notifyDataSetChanged();
-        }
-
-        Toast.makeText(getActivity(), "Cleared", Toast.LENGTH_SHORT).show();
-    }
-
-    /**
-     * Populates the entry with the base genres and usage statistics
-     * @param settings Shared Preferences
-     */
-    public void dispatchBaseStatistics(SharedPreferences settings) {
-        items = new ArrayList<>();
-        for (String genre : Utils.genres) {
-            GenreItem newItem = new GenreItem();
-            newItem.setGenreValue(genre);
-            items.add(newItem);
-        }
-
-        SharedPreferences.Editor editor = settings.edit();
-        editor.putString(Utils.GENRE_STATS_ENTRY, new Gson().toJson(items));
-        editor.apply();
-
-        if (mAdapter == null) {
-            mAdapter = new GenresListAdapter(items, this);
-        } else {
-            mAdapter.notifyDataSetChanged();
-        }
-
-        Toast.makeText(getActivity(), "Successfully created entries", Toast.LENGTH_SHORT).show();
-    }
 
 
     @Override

@@ -1,5 +1,7 @@
 package com.soundhub.ricardo.soundhub.models;
 
+import java.util.ArrayList;
+
 /**
  * Created by ricardo on 18-03-2015.
  */
@@ -14,6 +16,17 @@ public class TrackLookupResponse {
     private String stream_url;
     private String favoritings_count;
     private String original_format;
+
+    public SoundCloudUser getUser() {
+        return user;
+    }
+
+    public void setUser(SoundCloudUser user) {
+        this.user = user;
+    }
+
+    private SoundCloudUser user;
+    private ArrayList<String> registeredSingers;
 
     public String getKind() {
         return kind;
@@ -93,5 +106,9 @@ public class TrackLookupResponse {
 
     public void setOriginal_format(String original_format) {
         this.original_format = original_format;
+    }
+
+    public void addSingers(String singers) {
+        this.registeredSingers.add(singers);
     }
 }
