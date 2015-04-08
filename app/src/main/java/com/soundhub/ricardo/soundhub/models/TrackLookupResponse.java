@@ -18,6 +18,8 @@ public class TrackLookupResponse {
     private String original_format;
     private String waveform_url;
 
+    private String permalink_url;
+
     public SoundCloudUser getUser() {
         return user;
     }
@@ -122,5 +124,13 @@ public class TrackLookupResponse {
 
     public void setWaveform_url(String waveform_url) {
         this.waveform_url = waveform_url;
+    }
+
+    public String getPermalink_url() {
+        return permalink_url;
+    }
+
+    public void setPermalink_url(String permalink_url) {
+        this.permalink_url = permalink_url;
     }
 }

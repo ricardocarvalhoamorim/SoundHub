@@ -40,18 +40,12 @@ public class PrefsManager {
                 settings.getString(Utils.GENRE_STATS_ENTRY, ""),
                 Utils.ARRAY_GENRE_ITEMS);
 
-        for (GenreItem item : items) {
-            item.setLastPlayed("");
-            item.setPlayCount(0);
-        }
-
         SharedPreferences.Editor editor = settings.edit();
         editor.putString(
                 Utils.GENRE_STATS_ENTRY,
                 new Gson().toJson(items));
 
         editor.apply();
-        Toast.makeText(context, "Updated", Toast.LENGTH_SHORT).show();
     }
 
     /**

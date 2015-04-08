@@ -18,6 +18,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.DecelerateInterpolator;
+import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import com.software.shell.fab.ActionButton;
 import com.soundhub.ricardo.soundhub.Utils.PrefsManager;
@@ -47,11 +49,15 @@ public class MainActivity extends ActionBarActivity implements OnItemClickListen
     private SoundHubService mServer;
     private Intent playIntent;
 
-    private int trackNr;
+    private int playQueueIndex;
+    private int genreSelectionIndex;
 
     private GenresListAdapter mAdapter;
     private ArrayList<GenreItem> items;
     private ArrayList<TrackLookupResponse> playQueue;
+
+    private long mLastRequestStamp = 5000;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,9 +66,9 @@ public class MainActivity extends ActionBarActivity implements OnItemClickListen
 
         actionButton = (ActionButton) findViewById(R.id.action_button_play);
         skipButton = (ActionButton) findViewById(R.id.action_button_skip);
-
         toolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
 
         int currentapiVersion = android.os.Build.VERSION.SDK_INT;
         if (currentapiVersion >= Build.VERSION_CODES.LOLLIPOP
@@ -70,7 +76,7 @@ public class MainActivity extends ActionBarActivity implements OnItemClickListen
             getActionBar().setElevation(0);
         }
 
-        trackNr = 0;
+        playQueueIndex = -1;
 
         actionButton.hide();
         skipButton.hide();
@@ -93,15 +99,27 @@ public class MainActivity extends ActionBarActivity implements OnItemClickListen
         skipButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                trackNr++;
-                mServer.setTrackPos(trackNr);
+
+                if (System.currentTimeMillis() - mLastRequestStamp < 5000) {
+                    Toast.makeText(MainActivity.this, "Woah.. take it easy..", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                playQueueIndex++;
+                mServer.setTrackPos(playQueueIndex);
                 mServer.playSong();
 
-                toolbar.setTitle(playQueue.get(trackNr).getTitle());
-                toolbar.setSubtitle(playQueue.get(trackNr).getUser().getUsername());
+                items.get(genreSelectionIndex).addArtists(playQueue.get(playQueueIndex).getUser().getUsername());
+                mAdapter.notifyDataSetChanged();
+                PrefsManager.updateGenresAsync(MainActivity.this, items);
+
+                toolbar.setTitle(playQueue.get(playQueueIndex).getTitle());
+                toolbar.setSubtitle(playQueue.get(playQueueIndex).getUser().getUsername());
 
                 actionButton.show();
                 skipButton.show();
+
+                mLastRequestStamp = System.currentTimeMillis();
             }
         });
 
@@ -123,6 +141,7 @@ public class MainActivity extends ActionBarActivity implements OnItemClickListen
                 skipButton.hide();
                 toolbar.animate().translationY(-toolbar.getHeight()).setInterpolator(new AccelerateInterpolator(2));
             }
+
             @Override
             public void onShow() {
                 if (mServer.isPlaying()) {
@@ -139,22 +158,12 @@ public class MainActivity extends ActionBarActivity implements OnItemClickListen
     @Override
     public void onItemClick(View view, int position) {
 
-        fetchTracks(items.get(position).getGenreValue());
-
-        //selected item is not playing & others are playing
-        //TODO maybe improve this block
-        int itemsSize = items.size();
-        for (int i = 0; i < itemsSize; ++i) {
-            if (items.get(i).isNowPlaying()
-                    && i != position) {
-                items.get(i).setNowPlaying(false);
-            } else if (!items.get(i).isNowPlaying()
-                    && i == position) {
-                items.get(i).setNowPlaying(true);
-            }
+        if (genreSelectionIndex >= 0) {
+            items.get(genreSelectionIndex).setNowPlaying(false);
         }
 
-        mAdapter.notifyDataSetChanged();
+        genreSelectionIndex = position;
+        fetchTracks(items.get(position).getGenreValue());
     }
 
     @Override
@@ -199,6 +208,15 @@ public class MainActivity extends ActionBarActivity implements OnItemClickListen
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
+        if (id == R.id.action_info) {
+            if (playQueueIndex >= 0) {
+                String url = playQueue.get(playQueueIndex).getPermalink_url();
+                Intent i = new Intent(Intent.ACTION_VIEW);
+                i.setData(Uri.parse(url));
+                startActivity(i);
+            }
+        }
+
 
         return super.onOptionsItemSelected(item);
     }
@@ -224,18 +242,26 @@ public class MainActivity extends ActionBarActivity implements OnItemClickListen
                 long seed = System.nanoTime();
                 Collections.shuffle(result, new Random(seed));
 
-                trackNr = 0;
+                playQueueIndex = 0;
                 playQueue = result;
                 mServer.setTrackQueue(result);
-                mServer.setTrackPos(trackNr);
+                mServer.setTrackPos(playQueueIndex);
                 mServer.playSong();
 
-                toolbar.setTitle(result.get(trackNr).getTitle());
-                toolbar.setSubtitle(result.get(trackNr).getUser().getUsername());
+                toolbar.setTitle(result.get(playQueueIndex).getTitle());
+                toolbar.setSubtitle(result.get(playQueueIndex).getUser().getUsername());
+
+                items.get(genreSelectionIndex).addArtists(result.get(playQueueIndex).getUser().getUsername());
+                items.get(genreSelectionIndex).setNowPlaying(true);
+
+                mAdapter.notifyDataSetChanged();
+                PrefsManager.updateGenresAsync(MainActivity.this, items);
+
+                mAdapter.notifyDataSetChanged();
 
                 actionButton.show();
                 skipButton.show();
-                trackNr ++;
+                playQueueIndex++;
             }
 
             @Override
@@ -248,7 +274,6 @@ public class MainActivity extends ActionBarActivity implements OnItemClickListen
 
             }
         }).execute(builtUri);
-        Log.v("URI", "BUILT URI FOR STREAMING: " + builtUri);
     }
 
 

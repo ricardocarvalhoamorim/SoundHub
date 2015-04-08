@@ -12,8 +12,7 @@ public class GenreItem {
 
     private String GenreValue;
     private boolean nowPlaying;
-    private String lastPlayed;
-    private int playCount;
+    private String artists = "";
     private TrackLookupResponse currentTrack;
 
 
@@ -38,26 +37,19 @@ public class GenreItem {
     }
 
     public void setNowPlaying(boolean nowPlaying) {
-        if (nowPlaying) {
-            this.playCount += 1;
-            this.lastPlayed = new Date().toString();
-        }
         this.nowPlaying = nowPlaying;
     }
 
-    public String getLastPlayed() {
-        return lastPlayed == null ? "never" : lastPlayed;
+    public String getArtists() {
+        return artists;
     }
 
-    public void setLastPlayed(String lastPlayed) {
-        this.lastPlayed = lastPlayed;
-    }
+    public void addArtists(String newArtists) {
+        if (this.artists.equals("")) {
+            this.artists = newArtists;
+        } else {
+            this.artists += ", " +newArtists;
+        }
 
-    public int getPlayCount() {
-        return playCount;
-    }
-
-    public void setPlayCount(int playCount) {
-        this.playCount = playCount;
     }
 }

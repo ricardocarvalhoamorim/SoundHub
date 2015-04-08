@@ -55,6 +55,13 @@ public class GenresListAdapter  extends RecyclerView.Adapter<RecyclerView.ViewHo
                 GenreItem item = items.get(position);
 
                 ((GenreItemViewHolder) holder).tvItemValue.setText(item.getGenreValue());
+                if (!item.getArtists().equals("")) {
+                    ((GenreItemViewHolder) holder).tvItemArtists.setText(item.getArtists());
+                    ((GenreItemViewHolder) holder).tvItemArtists.setVisibility(View.VISIBLE);
+                } else  {
+                    ((GenreItemViewHolder) holder).tvItemArtists.setVisibility(View.GONE);
+                }
+
 
                 if (item.isNowPlaying()) {
                     ((GenreItemViewHolder) holder).tvNowPlaying.setVisibility(View.VISIBLE);
@@ -83,7 +90,7 @@ public class GenresListAdapter  extends RecyclerView.Adapter<RecyclerView.ViewHo
             implements View.OnClickListener, View.OnLongClickListener{
 
         private TextView tvItemValue;
-        private TextView tvItemPlayCount;
+        private TextView tvItemArtists;
         private TextView tvNowPlaying;
         private CardView itemCard;
 
@@ -91,7 +98,7 @@ public class GenresListAdapter  extends RecyclerView.Adapter<RecyclerView.ViewHo
             super(rowView);
 
             tvItemValue = (TextView) rowView.findViewById(R.id.genre_value);
-            tvItemPlayCount = (TextView) rowView.findViewById(R.id.genre_play_count);
+            tvItemArtists = (TextView) rowView.findViewById(R.id.genre_artists);
             tvNowPlaying = (TextView) rowView.findViewById(R.id.genre_now_playing);
             itemCard = (CardView) rowView.findViewById(R.id.item_card_container);
 
