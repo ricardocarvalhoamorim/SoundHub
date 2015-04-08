@@ -14,6 +14,7 @@ import android.os.IBinder;
 import android.os.PowerManager;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.soundhub.ricardo.soundhub.MainActivity;
 import com.soundhub.ricardo.soundhub.R;
@@ -112,7 +113,12 @@ public class SoundHubService extends Service implements
         }
 
 
-        player.prepareAsync();
+        try {
+            player.prepareAsync();
+        } catch (IllegalStateException e) {
+            Toast.makeText(getApplication(), "Stream error", Toast.LENGTH_SHORT).show();
+        }
+
         //after this -> onPrepared will be called
     }
 

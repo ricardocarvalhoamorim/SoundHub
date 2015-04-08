@@ -1,33 +1,35 @@
-<RelativeLayout xmlns:tools="http://schemas.android.com/tools"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:animateLayoutChanges="true"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+    android:layout_height="match_parent">
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/list_genres"
+        android:divider="@android:color/transparent"
+        android:scrollbars="none"
+        android:layout_marginEnd="2dp"
+        android:dividerHeight="10dp"
+        android:layout_marginStart="2dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:minHeight="30dp"
+        android:clipToPadding="false"
+        android:paddingTop="60dp"
+        />
 
     <android.support.v7.widget.Toolbar
+        android:titleTextAppearance="@style/Base.TextAppearance.AppCompat.Headline"
+        android:subtitleTextAppearance="@style/Base.TextAppearance.AppCompat.Caption"
         android:id="@+id/toolbar"
-        android:layout_height="128dp"
         android:layout_width="match_parent"
-        android:minHeight="?android:attr/actionBarSize"
-        android:background="?android:attr/colorPrimary"
-        android:gravity="top"
-        android:title="DAYUM DAT ASS"
-        android:titleTextAppearance="@style/TextAppearance.AppCompat.Headline"
-        android:subtitle="Its a nice artifact"
-        android:subtitleTextAppearance="@style/TextAppearance.AppCompat.Caption"
-        android:animateLayoutChanges="true" />
+        android:layout_height="60dp"
+        android:background="?attr/colorPrimary">
 
-    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/container"
-        android:layout_below="@id/toolbar"
-        android:layout_width="match_parent" android:layout_height="match_parent"
-        tools:context=".MainActivity" tools:ignore="MergeRootFrame" />
+        </android.support.v7.widget.Toolbar>
 
     <LinearLayout
         android:orientation="vertical"
-        android:layout_gravity="center"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentEnd="true"
+        android:layout_gravity="end|bottom"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
 
@@ -62,4 +64,4 @@
 
     </LinearLayout>
 
-</RelativeLayout>
+</FrameLayout>

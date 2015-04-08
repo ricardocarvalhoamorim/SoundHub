@@ -11,27 +11,45 @@
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
+        android:orientation="vertical"
         android:padding="10dp"
         >
 
+        <ImageView
+            android:id="@+id/trackCover"
+            android:src="@drawable/fab_plus_icon"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+
         <TextView
             android:id="@+id/genre_value"
+            android:layout_gravity="center_vertical"
             android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large"
-            android:layout_width="0dp"
-            android:layout_weight="0.9"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@android:color/background_dark"
             android:ellipsize="end"
             android:text="This is the name of the thing"
             android:maxLines="1"
             />
-<ImageButton
-    android:src="@android:drawable/star_big_on"
-    style="@android:style/Widget.Holo.Button.Borderless"
-    android:layout_width="0dp"
-    android:layout_weight="0.1"
-    android:layout_height="wrap_content" />
 
+        <TextView
+            android:id="@+id/genre_play_count"
+            android:text="Played: 58 times"
+            android:layout_marginTop="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+
+        <TextView
+            android:id="@+id/genre_now_playing"
+            android:visibility="gone"
+            android:gravity="end"
+            android:textColor="@android:color/holo_red_dark"
+            android:layout_marginBottom="8dp"
+            android:text="...NOW PLAYING"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
     </LinearLayout>
 </android.support.v7.widget.CardView>

@@ -1,6 +1,5 @@
 package com.soundhub.ricardo.soundhub;
 
-import android.app.Activity;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
@@ -10,24 +9,24 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.IBinder;
-import android.text.method.CharacterPickerDialog;
+import android.support.v7.app.ActionBarActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.view.ActionMode;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ImageView;
-import android.widget.TextView;
-import android.widget.Toolbar;
+import android.view.animation.AccelerateInterpolator;
+import android.view.animation.DecelerateInterpolator;
 
-import com.bumptech.glide.Glide;
 import com.software.shell.fab.ActionButton;
 import com.soundhub.ricardo.soundhub.Utils.PrefsManager;
-import com.soundhub.ricardo.soundhub.async.AsyncTrackFetcher;
 import com.soundhub.ricardo.soundhub.Utils.Utils;
-import com.soundhub.ricardo.soundhub.fragments.GenresListFragment;
+import com.soundhub.ricardo.soundhub.adapters.GenresListAdapter;
+import com.soundhub.ricardo.soundhub.adapters.ScrollListener;
+import com.soundhub.ricardo.soundhub.async.AsyncTrackFetcher;
 import com.soundhub.ricardo.soundhub.interfaces.AsyncCustomTaskHandler;
-import com.soundhub.ricardo.soundhub.interfaces.OnPlayerStatusChanged;
+import com.soundhub.ricardo.soundhub.interfaces.OnItemClickListener;
 import com.soundhub.ricardo.soundhub.models.GenreItem;
 import com.soundhub.ricardo.soundhub.models.ProgressUpdateItem;
 import com.soundhub.ricardo.soundhub.models.TrackLookupResponse;
@@ -38,19 +37,21 @@ import java.util.Collections;
 import java.util.Random;
 
 
-public class MainActivity extends Activity implements OnPlayerStatusChanged {
+public class MainActivity extends ActionBarActivity implements OnItemClickListener {
 
 
-    private android.support.v7.widget.Toolbar toolbar;
-    private ActionButton actionButton;
+    private static android.support.v7.widget.Toolbar toolbar;
+    private static ActionButton actionButton;
     private ActionButton skipButton;
-
-    ArrayList<TrackLookupResponse> playQueue;
 
     private SoundHubService mServer;
     private Intent playIntent;
 
     private int trackNr;
+
+    private GenresListAdapter mAdapter;
+    private ArrayList<GenreItem> items;
+    private ArrayList<TrackLookupResponse> playQueue;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,8 +60,9 @@ public class MainActivity extends Activity implements OnPlayerStatusChanged {
 
         actionButton = (ActionButton) findViewById(R.id.action_button_play);
         skipButton = (ActionButton) findViewById(R.id.action_button_skip);
-        toolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.toolbar);
 
+        toolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
         int currentapiVersion = android.os.Build.VERSION.SDK_INT;
         if (currentapiVersion >= Build.VERSION_CODES.LOLLIPOP
@@ -94,17 +96,70 @@ public class MainActivity extends Activity implements OnPlayerStatusChanged {
                 trackNr++;
                 mServer.setTrackPos(trackNr);
                 mServer.playSong();
-                preloadTrackInfo(playQueue.get(trackNr));
+
+                toolbar.setTitle(playQueue.get(trackNr).getTitle());
+                toolbar.setSubtitle(playQueue.get(trackNr).getUser().getUsername());
+
+                actionButton.show();
+                skipButton.show();
             }
         });
 
 
-        if (savedInstanceState == null) {
-            getFragmentManager().beginTransaction()
-                    .add(R.id.container, new GenresListFragment())
-                    .setCustomAnimations(R.anim.abc_fade_in, R.anim.abc_fade_out)
-                    .commit();
+        RecyclerView mRecyclerView = (RecyclerView) findViewById(R.id.list_genres);
+
+        final LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+        layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        mRecyclerView.setLayoutManager(layoutManager);
+
+        items = PrefsManager.getGenres(this);
+        mAdapter = new GenresListAdapter(items, this);
+        mRecyclerView.setAdapter(mAdapter);
+
+        mRecyclerView.setOnScrollListener(new ScrollListener() {
+            @Override
+            public void onHide() {
+                actionButton.hide();
+                skipButton.hide();
+                toolbar.animate().translationY(-toolbar.getHeight()).setInterpolator(new AccelerateInterpolator(2));
+            }
+            @Override
+            public void onShow() {
+                if (mServer.isPlaying()) {
+                    actionButton.show();
+                    skipButton.show();
+                }
+
+                toolbar.animate().translationY(0).setInterpolator(new DecelerateInterpolator(2));
+            }
+        });
+
+    }
+
+    @Override
+    public void onItemClick(View view, int position) {
+
+        fetchTracks(items.get(position).getGenreValue());
+
+        //selected item is not playing & others are playing
+        //TODO maybe improve this block
+        int itemsSize = items.size();
+        for (int i = 0; i < itemsSize; ++i) {
+            if (items.get(i).isNowPlaying()
+                    && i != position) {
+                items.get(i).setNowPlaying(false);
+            } else if (!items.get(i).isNowPlaying()
+                    && i == position) {
+                items.get(i).setNowPlaying(true);
+            }
         }
+
+        mAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void onItemLongClick(View view, int position) {
+
     }
 
     private ServiceConnection playerConnection = new ServiceConnection() {
@@ -144,10 +199,6 @@ public class MainActivity extends Activity implements OnPlayerStatusChanged {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_search) {
-            return true;
-        }
 
         return super.onOptionsItemSelected(item);
     }
@@ -180,9 +231,10 @@ public class MainActivity extends Activity implements OnPlayerStatusChanged {
                 mServer.playSong();
 
                 toolbar.setTitle(result.get(trackNr).getTitle());
-                toolbar.setTitle(result.get(trackNr).getUser().getUsername());
+                toolbar.setSubtitle(result.get(trackNr).getUser().getUsername());
 
-                preloadTrackInfo(result.get(trackNr));
+                actionButton.show();
+                skipButton.show();
                 trackNr ++;
             }
 
@@ -199,24 +251,6 @@ public class MainActivity extends Activity implements OnPlayerStatusChanged {
         Log.v("URI", "BUILT URI FOR STREAMING: " + builtUri);
     }
 
-    private void preloadTrackInfo(TrackLookupResponse trackLookupResponse) {
-        if (trackLookupResponse.getArtwork_url() != null &&
-                !trackLookupResponse.getArtwork_url().equals("")) {
-
-
-            /*
-            Glide.with(MainActivity.this)
-                    .load(trackLookupResponse.getArtwork_url())
-                    .placeholder(android.R.drawable.stat_sys_download_done)
-                    .crossFade()
-                    .into(trackCover);
-                    */
-
-        }
-
-        actionButton.show();
-        skipButton.show();
-    }
 
     @Override
     protected void onDestroy() {
@@ -225,16 +259,6 @@ public class MainActivity extends Activity implements OnPlayerStatusChanged {
         super.onDestroy();
     }
 
-    @Override
-    public void onGenreSelected(GenreItem selection) {
-        fetchTracks(selection.getGenreValue());
-    }
-
-
-    @Override
-    public void onListScroll(int visibility) {
-        toolbar.setVisibility(visibility);
-    }
 
     @Override
     protected void onResume() {
@@ -249,4 +273,5 @@ public class MainActivity extends Activity implements OnPlayerStatusChanged {
 
         super.onResume();
     }
+
 }

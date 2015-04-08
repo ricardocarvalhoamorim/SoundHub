@@ -16,6 +16,7 @@ public class TrackLookupResponse {
     private String stream_url;
     private String favoritings_count;
     private String original_format;
+    private String waveform_url;
 
     public SoundCloudUser getUser() {
         return user;
@@ -113,5 +114,13 @@ public class TrackLookupResponse {
             this.registeredSingers = new ArrayList<>();
         }
         this.registeredSingers.add(singers);
+    }
+
+    public String getWaveform_url() {
+        return waveform_url;
+    }
+
+    public void setWaveform_url(String waveform_url) {
+        this.waveform_url = waveform_url;
     }
 }

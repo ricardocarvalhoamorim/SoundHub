@@ -42,12 +42,6 @@ public class GenresListAdapter  extends RecyclerView.Adapter<RecyclerView.ViewHo
             v = LayoutInflater.from(parent.getContext()).inflate(
                     R.layout.item_genre, parent, false);
             return new GenreItemViewHolder(v);
-
-            case Utils.VIEW_TYPE_TRACK_INFO:
-                v = LayoutInflater.from(parent.getContext()).inflate(
-                        R.layout.item_track_info, parent, false
-                );
-                return new TrackInfoViewHolder(v);
         }
         return null;
     }
@@ -61,13 +55,6 @@ public class GenresListAdapter  extends RecyclerView.Adapter<RecyclerView.ViewHo
                 GenreItem item = items.get(position);
 
                 ((GenreItemViewHolder) holder).tvItemValue.setText(item.getGenreValue());
-
-                if (item.getPlayCount() > 0) {
-                    ((GenreItemViewHolder) holder).tvItemPlayCount.setVisibility(View.VISIBLE);
-                    ((GenreItemViewHolder) holder).tvItemPlayCount.setText("Played: " + item.getPlayCount());
-                } else {
-                    ((GenreItemViewHolder) holder).tvItemPlayCount.setVisibility(View.GONE);
-                }
 
                 if (item.isNowPlaying()) {
                     ((GenreItemViewHolder) holder).tvNowPlaying.setVisibility(View.VISIBLE);
@@ -84,10 +71,6 @@ public class GenresListAdapter  extends RecyclerView.Adapter<RecyclerView.ViewHo
 
     @Override
     public int getItemViewType(int position) {
-        if (position == 0) {
-            return Utils.VIEW_TYPE_TRACK_INFO;
-        }
-
         return Utils.VIEW_TYPE_GENRE_ITEM;
     }
 
@@ -126,22 +109,4 @@ public class GenresListAdapter  extends RecyclerView.Adapter<RecyclerView.ViewHo
             return false;
         }
     }
-
-    /**
-     * ViewHolder for the track info (if playing)
-     */
-    static class TrackInfoViewHolder extends RecyclerView.ViewHolder
-            implements View.OnClickListener {
-
-        public TrackInfoViewHolder(View rowView) {
-            super(rowView);
-            rowView.setOnClickListener(this);
-        }
-
-        @Override
-        public void onClick(View v) {
-
-        }
-    }
-
 }
