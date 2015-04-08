@@ -5,18 +5,24 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
+import android.content.SharedPreferences;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.IBinder;
+import android.text.method.CharacterPickerDialog;
 import android.util.Log;
+import android.view.ActionMode;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toolbar;
 
 import com.bumptech.glide.Glide;
 import com.software.shell.fab.ActionButton;
+import com.soundhub.ricardo.soundhub.Utils.PrefsManager;
 import com.soundhub.ricardo.soundhub.async.AsyncTrackFetcher;
 import com.soundhub.ricardo.soundhub.Utils.Utils;
 import com.soundhub.ricardo.soundhub.fragments.GenresListFragment;
@@ -35,19 +41,16 @@ import java.util.Random;
 public class MainActivity extends Activity implements OnPlayerStatusChanged {
 
 
+    private android.support.v7.widget.Toolbar toolbar;
     private ActionButton actionButton;
     private ActionButton skipButton;
 
     ArrayList<TrackLookupResponse> playQueue;
 
-    private static ImageView trackCover;
-    private boolean expandedViewAccessible;
-
     private SoundHubService mServer;
     private Intent playIntent;
 
     private int trackNr;
-    private boolean skipBaseDeploy;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,7 +59,14 @@ public class MainActivity extends Activity implements OnPlayerStatusChanged {
 
         actionButton = (ActionButton) findViewById(R.id.action_button_play);
         skipButton = (ActionButton) findViewById(R.id.action_button_skip);
-        trackCover = (ImageView) findViewById(R.id.track_cover);
+        toolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.toolbar);
+
+
+        int currentapiVersion = android.os.Build.VERSION.SDK_INT;
+        if (currentapiVersion >= Build.VERSION_CODES.LOLLIPOP
+                && getActionBar() != null){
+            getActionBar().setElevation(0);
+        }
 
         trackNr = 0;
 
@@ -73,7 +83,7 @@ public class MainActivity extends Activity implements OnPlayerStatusChanged {
                 } else {
                     mServer.resume();
                     actionButton.setImageDrawable(
-                            getResources().getDrawable(android.R.drawable.ic_media_play));
+                            getResources().getDrawable(android.R.drawable.ic_media_pause));
                 }
             }
         });
@@ -82,27 +92,12 @@ public class MainActivity extends Activity implements OnPlayerStatusChanged {
             @Override
             public void onClick(View v) {
                 trackNr++;
-
                 mServer.setTrackPos(trackNr);
                 mServer.playSong();
                 preloadTrackInfo(playQueue.get(trackNr));
             }
         });
 
-        findViewById(R.id.player_header).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (expandedViewAccessible) {
-                    findViewById(R.id.player_status_small).setVisibility(View.VISIBLE);
-                    findViewById(R.id.player_layout).setVisibility(View.GONE);
-                    expandedViewAccessible = false;
-                } else {
-                    findViewById(R.id.player_status_small).setVisibility(View.GONE);
-                    findViewById(R.id.player_layout).setVisibility(View.VISIBLE);
-                    expandedViewAccessible = true;
-                }
-            }
-        });
 
         if (savedInstanceState == null) {
             getFragmentManager().beginTransaction()
@@ -127,7 +122,7 @@ public class MainActivity extends Activity implements OnPlayerStatusChanged {
     @Override
     protected void onStart() {
         super.onStart();
-        if(playIntent == null && !skipBaseDeploy) {
+        if(playIntent == null) {
             playIntent = new Intent(this, SoundHubService.class);
             bindService(playIntent, playerConnection, Context.BIND_AUTO_CREATE);
             startService(playIntent);
@@ -184,6 +179,9 @@ public class MainActivity extends Activity implements OnPlayerStatusChanged {
                 mServer.setTrackPos(trackNr);
                 mServer.playSong();
 
+                toolbar.setTitle(result.get(trackNr).getTitle());
+                toolbar.setTitle(result.get(trackNr).getUser().getUsername());
+
                 preloadTrackInfo(result.get(trackNr));
                 trackNr ++;
             }
@@ -205,32 +203,19 @@ public class MainActivity extends Activity implements OnPlayerStatusChanged {
         if (trackLookupResponse.getArtwork_url() != null &&
                 !trackLookupResponse.getArtwork_url().equals("")) {
 
-            trackCover.setVisibility(View.VISIBLE);
 
-            ((TextView) findViewById(R.id.player_status_small)).setText(trackLookupResponse.getTitle());
-            ((TextView) findViewById(R.id.player_status)).setText(trackLookupResponse.getTitle());
-
-            ((TextView) findViewById(R.id.player_status_tags)).setText(trackLookupResponse.getTag_list());
-            ((TextView) findViewById(R.id.player_status_favoritings)).setText(trackLookupResponse.getFavoritings_count() + " times favorited");
-
+            /*
             Glide.with(MainActivity.this)
                     .load(trackLookupResponse.getArtwork_url())
                     .placeholder(android.R.drawable.stat_sys_download_done)
                     .crossFade()
                     .into(trackCover);
+                    */
 
-        } else {
-            trackCover.setVisibility(View.GONE);
         }
 
         actionButton.show();
         skipButton.show();
-
-        //TODO register singers
-        playQueue.get(trackNr).addSingers(trackLookupResponse.getUser().getUsername());
-
-        //TODO: update db
-
     }
 
     @Override
@@ -248,16 +233,20 @@ public class MainActivity extends Activity implements OnPlayerStatusChanged {
 
     @Override
     public void onListScroll(int visibility) {
-
+        toolbar.setVisibility(visibility);
     }
 
     @Override
     protected void onResume() {
-        if (mServer == null) {
-            skipBaseDeploy = false;
-        } else if (mServer.isPlaying()) {
-            skipBaseDeploy = true;
+
+        SharedPreferences prefs = getSharedPreferences(getString(R.string.app_name), MODE_PRIVATE);;
+
+        //First run - load base genres list
+        if (prefs.getBoolean("firstrun", true)) {
+            PrefsManager.dispatchBaseStatistics(this, prefs);
+            prefs.edit().putBoolean("firstrun", false).apply();
         }
+
         super.onResume();
     }
 }

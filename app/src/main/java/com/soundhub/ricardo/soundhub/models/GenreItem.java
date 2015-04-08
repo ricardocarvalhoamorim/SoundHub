@@ -11,7 +11,6 @@ import java.util.Date;
 public class GenreItem {
 
     private String GenreValue;
-    private ArrayList<String> singers;
     private boolean nowPlaying;
     private String lastPlayed;
     private int playCount;
@@ -32,14 +31,6 @@ public class GenreItem {
 
     public void setGenreValue(String genreValue) {
         GenreValue = genreValue;
-    }
-
-    public ArrayList<String> getSingers() {
-        return singers == null? new ArrayList<String>() : singers;
-    }
-
-    public void setSingers(ArrayList<String> singers) {
-        this.singers = singers;
     }
 
     public boolean isNowPlaying() {

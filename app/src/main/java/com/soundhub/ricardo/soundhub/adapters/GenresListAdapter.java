@@ -4,7 +4,6 @@ package com.soundhub.ricardo.soundhub.adapters;
  * Created by ricardo on 17-03-2015.
  */
 
-import android.content.Context;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -23,7 +22,6 @@ import java.util.ArrayList;
 public class GenresListAdapter  extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private ArrayList<GenreItem> items;
-
     private static OnItemClickListener listener;
 
 
@@ -44,6 +42,12 @@ public class GenresListAdapter  extends RecyclerView.Adapter<RecyclerView.ViewHo
             v = LayoutInflater.from(parent.getContext()).inflate(
                     R.layout.item_genre, parent, false);
             return new GenreItemViewHolder(v);
+
+            case Utils.VIEW_TYPE_TRACK_INFO:
+                v = LayoutInflater.from(parent.getContext()).inflate(
+                        R.layout.item_track_info, parent, false
+                );
+                return new TrackInfoViewHolder(v);
         }
         return null;
     }
@@ -58,13 +62,6 @@ public class GenresListAdapter  extends RecyclerView.Adapter<RecyclerView.ViewHo
 
                 ((GenreItemViewHolder) holder).tvItemValue.setText(item.getGenreValue());
 
-                if (item.getSingers().size() != 0) {
-                    ((GenreItemViewHolder) holder).tvItemArtists.setVisibility(View.VISIBLE);
-                    ((GenreItemViewHolder) holder).tvItemArtists.setText(item.getSingers().toString());
-                } else {
-                    ((GenreItemViewHolder) holder).tvItemArtists.setVisibility(View.GONE);
-                }
-
                 if (item.getPlayCount() > 0) {
                     ((GenreItemViewHolder) holder).tvItemPlayCount.setVisibility(View.VISIBLE);
                     ((GenreItemViewHolder) holder).tvItemPlayCount.setText("Played: " + item.getPlayCount());
@@ -77,16 +74,20 @@ public class GenresListAdapter  extends RecyclerView.Adapter<RecyclerView.ViewHo
                 } else {
                     ((GenreItemViewHolder) holder).tvNowPlaying.setVisibility(View.GONE);
                 }
-
-                ((GenreItemViewHolder) holder).tvItemLastPlayed.setText("Last played: " + item.getLastPlayed());
                 break;
 
+            case Utils.VIEW_TYPE_TRACK_INFO:
+                break;
         }
     }
 
 
     @Override
     public int getItemViewType(int position) {
+        if (position == 0) {
+            return Utils.VIEW_TYPE_TRACK_INFO;
+        }
+
         return Utils.VIEW_TYPE_GENRE_ITEM;
     }
 
@@ -100,18 +101,13 @@ public class GenresListAdapter  extends RecyclerView.Adapter<RecyclerView.ViewHo
 
         private TextView tvItemValue;
         private TextView tvItemPlayCount;
-        private TextView tvItemLastPlayed;
-        private TextView tvItemArtists;
         private TextView tvNowPlaying;
         private CardView itemCard;
-
 
         public GenreItemViewHolder(View rowView) {
             super(rowView);
 
             tvItemValue = (TextView) rowView.findViewById(R.id.genre_value);
-            tvItemArtists = (TextView) rowView.findViewById(R.id.genre_play_artists);
-            tvItemLastPlayed = (TextView) rowView.findViewById(R.id.genre_play_last_played);
             tvItemPlayCount = (TextView) rowView.findViewById(R.id.genre_play_count);
             tvNowPlaying = (TextView) rowView.findViewById(R.id.genre_now_playing);
             itemCard = (CardView) rowView.findViewById(R.id.item_card_container);
@@ -128,6 +124,23 @@ public class GenresListAdapter  extends RecyclerView.Adapter<RecyclerView.ViewHo
         @Override
         public boolean onLongClick(View v) {
             return false;
+        }
+    }
+
+    /**
+     * ViewHolder for the track info (if playing)
+     */
+    static class TrackInfoViewHolder extends RecyclerView.ViewHolder
+            implements View.OnClickListener {
+
+        public TrackInfoViewHolder(View rowView) {
+            super(rowView);
+            rowView.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View v) {
+
         }
     }
 

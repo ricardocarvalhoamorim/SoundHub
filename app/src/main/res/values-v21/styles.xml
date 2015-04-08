@@ -7,6 +7,7 @@
         <!-- Act. Bar -->
         <item name="android:colorPrimaryDark">@color/primary_dark</item>
         <!-- Stat. Bar -->
+        <item name="android:windowContentOverlay">@null</item>
 
         <item name="android:textColorPrimary">@color/text_primary</item>
     </style>

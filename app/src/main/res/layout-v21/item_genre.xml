@@ -35,27 +35,12 @@
             />
 
         <TextView
-            android:id="@+id/genre_play_artists"
-            android:text="Janiqua, Rute Marlene, Bob Sinclair, Agata, José Sócrates, Pedro Passos Coelho, Britney Spears, ..."
-            android:layout_marginTop="5dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-        <TextView
             android:id="@+id/genre_play_count"
             android:text="Played: 58 times"
             android:layout_marginTop="5dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
-
-
-        <TextView
-            android:id="@+id/genre_play_last_played"
-            android:text="Last played: 25 December 15"
-            android:layout_marginTop="5dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
 
         <TextView
             android:id="@+id/genre_now_playing"

@@ -109,6 +109,9 @@ public class TrackLookupResponse {
     }
 
     public void addSingers(String singers) {
+        if (this.registeredSingers == null) {
+            this.registeredSingers = new ArrayList<>();
+        }
         this.registeredSingers.add(singers);
     }
 }

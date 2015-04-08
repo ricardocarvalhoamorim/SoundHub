@@ -2,6 +2,7 @@ package com.soundhub.ricardo.soundhub.fragments;
 
 import android.app.Activity;
 import android.app.Fragment;
+import android.opengl.Visibility;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -47,6 +48,18 @@ public class GenresListFragment extends Fragment implements OnItemClickListener 
         mAdapter = new GenresListAdapter(items, this);
         mRecyclerView.setAdapter(mAdapter);
 
+        mRecyclerView.setOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                if (dy > 10) {
+                    playerStatusListener.onListScroll(View.GONE);
+                } else if (dy < -10) {
+                    playerStatusListener.onListScroll(View.VISIBLE);
+                }
+                super.onScrolled(recyclerView, dx, dy);
+            }
+        });
+
         return rootView;
     }
 
@@ -78,10 +91,6 @@ public class GenresListFragment extends Fragment implements OnItemClickListener 
     public void onItemLongClick(View view, int position) {
 
     }
-
-
-
-
 
     @Override
     public void onAttach(Activity activity) {

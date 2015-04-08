@@ -23,10 +23,10 @@ public class PrefsManager {
             return dispatchBaseStatistics(context, settings);
         }
 
-        return new Gson().fromJson(settings.getString(context.getString(R.string.app_name), ""), Utils.ARRAY_GENRE_ITEMS);
+        return new Gson().fromJson(settings.getString(Utils.GENRE_STATS_ENTRY, ""), Utils.ARRAY_GENRE_ITEMS);
     }
 
-    public void updateGenresAsync(Context context, ArrayList<GenreItem> items) {
+    public static  void updateGenresAsync(Context context, ArrayList<GenreItem> items) {
 
         SharedPreferences settings = context.getSharedPreferences(
                 context.getString(R.string.app_name), Context.MODE_PRIVATE);
@@ -43,7 +43,6 @@ public class PrefsManager {
         for (GenreItem item : items) {
             item.setLastPlayed("");
             item.setPlayCount(0);
-            item.setSingers(new ArrayList<String>());
         }
 
         SharedPreferences.Editor editor = settings.edit();

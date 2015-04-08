@@ -4,6 +4,7 @@
     android:layout_height="match_parent">
 
     <TextView
+        android:text="TRACK INFO!!"
         android:id="@+id/tv_track_info"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
