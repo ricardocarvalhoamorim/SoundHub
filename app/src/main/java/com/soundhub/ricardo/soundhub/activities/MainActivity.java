@@ -30,7 +30,6 @@ import com.soundhub.ricardo.soundhub.async.AsyncTrackFetcher;
 import com.soundhub.ricardo.soundhub.interfaces.AsyncCustomTaskHandler;
 import com.soundhub.ricardo.soundhub.interfaces.OnItemClickListener;
 import com.soundhub.ricardo.soundhub.models.GenreItem;
-import com.soundhub.ricardo.soundhub.models.ProgressUpdateItem;
 import com.soundhub.ricardo.soundhub.models.TrackLookupResponse;
 import com.soundhub.ricardo.soundhub.services.SoundHubService;
 
@@ -45,6 +44,7 @@ public class MainActivity extends ActionBarActivity implements OnItemClickListen
     private static android.support.v7.widget.Toolbar toolbar;
     private static ActionButton actionButton;
     private ActionButton skipButton;
+    private ActionButton prevButton;
 
     private SoundHubService mServer;
     private Intent playIntent;
@@ -66,20 +66,22 @@ public class MainActivity extends ActionBarActivity implements OnItemClickListen
 
         actionButton = (ActionButton) findViewById(R.id.action_button_play);
         skipButton = (ActionButton) findViewById(R.id.action_button_skip);
+        prevButton = (ActionButton) findViewById(R.id.action_button_prev);
         toolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
 
         int currentapiVersion = android.os.Build.VERSION.SDK_INT;
         if (currentapiVersion >= Build.VERSION_CODES.LOLLIPOP
-                && getActionBar() != null) {
-            getActionBar().setElevation(0);
+                && getSupportActionBar() != null) {
+            getSupportActionBar().setElevation(0);
         }
 
         playQueueIndex = -1;
 
         actionButton.hide();
         skipButton.hide();
+        prevButton.hide();
 
         actionButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -105,21 +107,31 @@ public class MainActivity extends ActionBarActivity implements OnItemClickListen
                     return;
                 }
 
+                if (playQueueIndex == playQueue.size()) {
+                    //Preload more tracks?
+                    Toast.makeText(MainActivity.this, "No more tracks to go", Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 playQueueIndex++;
-                mServer.setTrackPos(playQueueIndex);
-                mServer.playSong();
 
-                items.get(genreSelectionIndex).addArtists(playQueue.get(playQueueIndex).getUser().getUsername());
-                mAdapter.notifyDataSetChanged();
-                PrefsManager.updateGenresAsync(MainActivity.this, items);
+                dispatchPlaySelection();
+            }
+        });
 
-                toolbar.setTitle(playQueue.get(playQueueIndex).getTitle());
-                toolbar.setSubtitle(playQueue.get(playQueueIndex).getUser().getUsername());
+        prevButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (System.currentTimeMillis() - mLastRequestStamp < 5000) {
+                    Toast.makeText(MainActivity.this, "Woah.. take it easy..", Toast.LENGTH_SHORT).show();
+                    return;
+                }
 
-                actionButton.show();
-                skipButton.show();
-
-                mLastRequestStamp = System.currentTimeMillis();
+                if (playQueueIndex == 0) {
+                    Toast.makeText(MainActivity.this, "Can't.... go... back.... mustn't", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                playQueueIndex--;
+                dispatchPlaySelection();
             }
         });
 
@@ -139,6 +151,7 @@ public class MainActivity extends ActionBarActivity implements OnItemClickListen
             public void onHide() {
                 actionButton.hide();
                 skipButton.hide();
+                prevButton.hide();
                 toolbar.animate().translationY(-toolbar.getHeight()).setInterpolator(new AccelerateInterpolator(2));
             }
 
@@ -147,12 +160,31 @@ public class MainActivity extends ActionBarActivity implements OnItemClickListen
                 if (mServer.isPlaying()) {
                     actionButton.show();
                     skipButton.show();
+                    prevButton.show();
                 }
 
                 toolbar.animate().translationY(0).setInterpolator(new DecelerateInterpolator(2));
             }
         });
 
+    }
+
+    private void dispatchPlaySelection() {
+        mServer.setTrackPos(playQueueIndex);
+        mServer.playSong();
+
+        items.get(genreSelectionIndex).addArtists(playQueue.get(playQueueIndex).getUser().getUsername());
+        mAdapter.notifyDataSetChanged();
+        PrefsManager.updateGenresAsync(MainActivity.this, items);
+
+        toolbar.setTitle(playQueue.get(playQueueIndex).getTitle());
+        toolbar.setSubtitle(playQueue.get(playQueueIndex).getUser().getUsername());
+
+        actionButton.show();
+        skipButton.show();
+        prevButton.show();
+
+        mLastRequestStamp = System.currentTimeMillis();
     }
 
     @Override
@@ -216,13 +248,9 @@ public class MainActivity extends ActionBarActivity implements OnItemClickListen
                 startActivity(i);
             }
         } else if (id == R.id.action_settings) {
-            //TODO: activity to show app info
-
             Intent intent = new Intent(this, SettingsActivity.class);
             startActivity(intent);
         }
-
-
         return super.onOptionsItemSelected(item);
     }
 
@@ -266,17 +294,13 @@ public class MainActivity extends ActionBarActivity implements OnItemClickListen
 
                 actionButton.show();
                 skipButton.show();
+                prevButton.show();
                 playQueueIndex++;
             }
 
             @Override
             public void onFailure(Exception error) {
                 Log.e("Failure", error.toString());
-            }
-
-            @Override
-            public void onProgressUpdate(ProgressUpdateItem progress) {
-
             }
         }).execute(builtUri);
     }
@@ -298,7 +322,7 @@ public class MainActivity extends ActionBarActivity implements OnItemClickListen
     @Override
     protected void onResume() {
 
-        SharedPreferences prefs = getSharedPreferences(getString(R.string.app_name), MODE_PRIVATE);;
+        SharedPreferences prefs = getSharedPreferences(getString(R.string.app_name), MODE_PRIVATE);
 
         //First run - load base genres list
         if (prefs.getBoolean("firstrun", true)) {

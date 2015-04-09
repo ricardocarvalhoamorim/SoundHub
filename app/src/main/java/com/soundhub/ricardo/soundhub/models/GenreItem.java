@@ -1,10 +1,5 @@
 package com.soundhub.ricardo.soundhub.models;
 
-import com.soundhub.ricardo.soundhub.R;
-
-import java.util.ArrayList;
-import java.util.Date;
-
 /**
  * Created by ricardo on 17-03-2015.
  */

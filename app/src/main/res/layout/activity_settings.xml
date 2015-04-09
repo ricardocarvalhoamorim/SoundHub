@@ -17,6 +17,7 @@
 
 
         <ImageView
+            android:contentDescription="app icon"
             android:layout_gravity="center"
             android:src="@mipmap/ic_launcher"
             android:layout_width="wrap_content"
