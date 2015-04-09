@@ -39,15 +39,9 @@
     <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="app: com.soundhub.ricardo.soundhub" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f25fbfea-f6e9-48ec-8923-8194c139740f" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/soundhub/ricardo/soundhub/models/GenreItem.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/soundhub/ricardo/soundhub/models/GenreItem.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/soundhub/ricardo/soundhub/adapters/GenresListAdapter.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/soundhub/ricardo/soundhub/adapters/GenresListAdapter.java" />
+    <list default="true" id="f25fbfea-f6e9-48ec-8923-8194c139740f" name="Default" comment="Added artists to each of the genres. These are laded each time a song starts playing. Added threshold to avoid a flood of requests if the user presses the skip button very often.">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/soundhub/ricardo/soundhub/MainActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/soundhub/ricardo/soundhub/MainActivity.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/soundhub/ricardo/soundhub/Utils/PrefsManager.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/soundhub/ricardo/soundhub/Utils/PrefsManager.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/soundhub/ricardo/soundhub/models/TrackLookupResponse.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/soundhub/ricardo/soundhub/models/TrackLookupResponse.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout-v21/activity_main.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout-v21/activity_main.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout-v21/item_genre.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout-v21/item_genre.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/menu/menu_main.xml" afterPath="$PROJECT_DIR$/app/src/main/res/menu/menu_main.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="SoundHub.iws" />
@@ -74,13 +68,15 @@
       <file leaf-file-name="MainActivity.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/soundhub/ricardo/soundhub/MainActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.82752293" vertical-offset="1555" max-vertical-offset="5151">
-              <caret line="121" column="33" selection-start-line="121" selection-start-column="33" selection-end-line="121" selection-end-column="33" />
+            <state vertical-scroll-proportion="0.35963303" vertical-offset="4547" max-vertical-offset="5287">
+              <caret line="281" column="24" selection-start-line="281" selection-start-column="24" selection-end-line="281" selection-end-column="24" />
               <folding>
                 <element signature="imports" expanded="true" />
+                <element signature="e#2915#3477#0" expanded="true" />
+                <element signature="e#3466#3467#0" expanded="true" />
                 <element signature="e#3519#4535#0" expanded="true" />
                 <element signature="e#4524#4525#0" expanded="true" />
-                <element signature="e#9841#9869#0" expanded="true" />
+                <element signature="e#9983#10011#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -89,9 +85,11 @@
       <file leaf-file-name="PrefsManager.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/soundhub/ricardo/soundhub/Utils/PrefsManager.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="221" max-vertical-offset="1156">
-              <caret line="47" column="23" selection-start-line="47" selection-start-column="23" selection-end-line="47" selection-end-column="23" />
-              <folding />
+            <state vertical-scroll-proportion="0.0" vertical-offset="306" max-vertical-offset="1088">
+              <caret line="37" column="0" selection-start-line="37" selection-start-column="0" selection-end-line="37" selection-end-column="0" />
+              <folding>
+                <element signature="e#548#584#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -2009,7 +2007,11 @@
       <created>1428532765129</created>
       <updated>1428532765129</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="Added artists to each of the genres. These are laded each time a song starts playing. Added threshold to avoid a flood of requests if the user presses the skip button very often.">
+      <created>1428537481399</created>
+      <updated>1428537481399</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -2033,7 +2035,7 @@
       <window_info id="Gradle Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="13" side_tool="true" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.20573871" sideWeight="0.5" order="3" side_tool="false" content_ui="combo" />
-      <window_info id="Memory Monitor" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.4010471" sideWeight="0.501221" order="14" side_tool="true" content_ui="tabs" />
+      <window_info id="Memory Monitor" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4010471" sideWeight="0.501221" order="14" side_tool="true" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32879582" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -2070,11 +2072,20 @@
     <MESSAGE value="Improved track skipping behaviour, but still needs additional checks" />
     <MESSAGE value="Created service to manage the audio player. Finished integrating the play/pause and skip buttons. Switched to the MediaPlayer and removed exoPlayer for now as few documentation is available and poor performance for streaming audio. Updated interfaces between activity and fragments" />
     <MESSAGE value="Changed interface to hold the active actionbar. Changed theme to hide default toolbar and include the custom layout with the new one. added listener to respond to scroll changes and hide buttons and toolbar accordingly. Removed useless main fragment and merged its behaviour with the main activity" />
-    <option name="LAST_COMMIT_MESSAGE" value="Changed interface to hold the active actionbar. Changed theme to hide default toolbar and include the custom layout with the new one. added listener to respond to scroll changes and hide buttons and toolbar accordingly. Removed useless main fragment and merged its behaviour with the main activity" />
+    <MESSAGE value="Added artists to each of the genres. These are laded each time a song starts playing. Added threshold to avoid a flood of requests if the user presses the skip button very often." />
+    <option name="LAST_COMMIT_MESSAGE" value="Added artists to each of the genres. These are laded each time a song starts playing. Added threshold to avoid a flood of requests if the user presses the skip button very often." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="31" />
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/app/src/main/java/com/soundhub/ricardo/soundhub/MainActivity.java</url>
+          <line>132</line>
+          <properties />
+          <option name="timeStamp" value="31" />
+        </line-breakpoint>
+      </breakpoints>
+      <option name="time" value="32" />
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
@@ -2122,9 +2133,11 @@
           <caret line="117" column="25" selection-start-line="117" selection-start-column="10" selection-end-line="117" selection-end-column="25" />
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="e#2915#3477#0" expanded="true" />
+            <element signature="e#3466#3467#0" expanded="true" />
             <element signature="e#3519#4535#0" expanded="true" />
             <element signature="e#4524#4525#0" expanded="true" />
-            <element signature="e#9841#9869#0" expanded="true" />
+            <element signature="e#9983#10011#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -2215,9 +2228,11 @@
           <caret line="45" column="5" selection-start-line="45" selection-start-column="5" selection-end-line="45" selection-end-column="5" />
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="e#2915#3477#0" expanded="true" />
+            <element signature="e#3466#3467#0" expanded="true" />
             <element signature="e#3519#4535#0" expanded="true" />
             <element signature="e#4524#4525#0" expanded="true" />
-            <element signature="e#9841#9869#0" expanded="true" />
+            <element signature="e#9983#10011#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -2492,14 +2507,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/soundhub/ricardo/soundhub/Utils/PrefsManager.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="221" max-vertical-offset="1156">
-          <caret line="47" column="23" selection-start-line="47" selection-start-column="23" selection-end-line="47" selection-end-column="23" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout-v21/activity_main.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-29.115385" vertical-offset="365" max-vertical-offset="1241">
@@ -2527,15 +2534,27 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/soundhub/ricardo/soundhub/Utils/PrefsManager.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="153" max-vertical-offset="1088">
+          <caret line="37" column="0" selection-start-line="37" selection-start-column="0" selection-end-line="37" selection-end-column="0" />
+          <folding>
+            <element signature="e#548#584#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/soundhub/ricardo/soundhub/MainActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.82752293" vertical-offset="1555" max-vertical-offset="5151">
-          <caret line="121" column="33" selection-start-line="121" selection-start-column="33" selection-end-line="121" selection-end-column="33" />
+        <state vertical-scroll-proportion="0.35963303" vertical-offset="4547" max-vertical-offset="5287">
+          <caret line="281" column="24" selection-start-line="281" selection-start-column="24" selection-end-line="281" selection-end-column="24" />
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="e#2915#3477#0" expanded="true" />
+            <element signature="e#3466#3467#0" expanded="true" />
             <element signature="e#3519#4535#0" expanded="true" />
             <element signature="e#4524#4525#0" expanded="true" />
-            <element signature="e#9841#9869#0" expanded="true" />
+            <element signature="e#9983#10011#0" expanded="true" />
           </folding>
         </state>
       </provider>

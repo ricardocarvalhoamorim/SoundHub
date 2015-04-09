@@ -36,10 +36,6 @@ public class PrefsManager {
             return;
         }
 
-        items = new Gson().fromJson(
-                settings.getString(Utils.GENRE_STATS_ENTRY, ""),
-                Utils.ARRAY_GENRE_ITEMS);
-
         SharedPreferences.Editor editor = settings.edit();
         editor.putString(
                 Utils.GENRE_STATS_ENTRY,

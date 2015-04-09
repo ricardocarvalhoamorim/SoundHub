@@ -281,6 +281,11 @@ public class MainActivity extends ActionBarActivity implements OnItemClickListen
     protected void onDestroy() {
         stopService(playIntent);
         mServer = null;
+
+        for (GenreItem item : items) {
+            item.setNowPlaying(false);
+        }
+        PrefsManager.updateGenresAsync(this, items);
         super.onDestroy();
     }
 
