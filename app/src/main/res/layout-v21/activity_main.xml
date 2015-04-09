@@ -14,7 +14,7 @@
         android:layout_gravity="center"
         android:minHeight="30dp"
         android:clipToPadding="false"
-        android:paddingTop="60dp"
+        android:paddingTop="120dp"
         />
 
 
@@ -23,7 +23,7 @@
         android:subtitleTextAppearance="@style/Base.TextAppearance.AppCompat.Caption"
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="120dp"
         android:background="?attr/colorPrimary">
 
         </android.support.v7.widget.Toolbar>

@@ -5,7 +5,13 @@
 
     <item android:id="@+id/action_info"
         android:title="info"
-        android:orderInCategory="100" app:showAsAction="always"
+        android:orderInCategory="90" app:showAsAction="always"
         android:icon="@android:drawable/ic_menu_info_details"
+        />
+
+    <item android:id="@+id/action_settings"
+        android:title="info"
+        android:orderInCategory="100" app:showAsAction="always"
+        android:icon="@android:drawable/ic_menu_manage"
         />
 </menu>

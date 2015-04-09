@@ -1,4 +1,4 @@
-package com.soundhub.ricardo.soundhub;
+package com.soundhub.ricardo.soundhub.activities;
 
 import android.content.ComponentName;
 import android.content.Context;
@@ -18,10 +18,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.DecelerateInterpolator;
-import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.software.shell.fab.ActionButton;
+import com.soundhub.ricardo.soundhub.R;
 import com.soundhub.ricardo.soundhub.Utils.PrefsManager;
 import com.soundhub.ricardo.soundhub.Utils.Utils;
 import com.soundhub.ricardo.soundhub.adapters.GenresListAdapter;
@@ -72,7 +72,7 @@ public class MainActivity extends ActionBarActivity implements OnItemClickListen
 
         int currentapiVersion = android.os.Build.VERSION.SDK_INT;
         if (currentapiVersion >= Build.VERSION_CODES.LOLLIPOP
-                && getActionBar() != null){
+                && getActionBar() != null) {
             getActionBar().setElevation(0);
         }
 
@@ -131,7 +131,7 @@ public class MainActivity extends ActionBarActivity implements OnItemClickListen
         mRecyclerView.setLayoutManager(layoutManager);
 
         items = PrefsManager.getGenres(this);
-        mAdapter = new GenresListAdapter(items, this);
+        mAdapter = new GenresListAdapter(items, this, MainActivity.this);
         mRecyclerView.setAdapter(mAdapter);
 
         mRecyclerView.setOnScrollListener(new ScrollListener() {
@@ -215,6 +215,11 @@ public class MainActivity extends ActionBarActivity implements OnItemClickListen
                 i.setData(Uri.parse(url));
                 startActivity(i);
             }
+        } else if (id == R.id.action_settings) {
+            //TODO: activity to show app info
+
+            Intent intent = new Intent(this, SettingsActivity.class);
+            startActivity(intent);
         }
 
 

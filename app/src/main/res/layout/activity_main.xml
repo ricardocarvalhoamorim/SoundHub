@@ -1,5 +1,4 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -15,22 +14,21 @@
         android:layout_gravity="center"
         android:minHeight="30dp"
         android:clipToPadding="false"
-        android:paddingTop="128dp"
+        android:paddingTop="60dp"
         />
 
+
     <android.support.v7.widget.Toolbar
-        android:titleTextAppearance="@style/Base.TextAppearance.AppCompat.Headline"
-        android:subtitleTextAppearance="@style/Base.TextAppearance.AppCompat.Caption"
-        app:title="SoundHUB - shuffle your life"
-        android:subtitle="Bery good app"
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="128dp"
-        android:background="?attr/colorPrimary"/>
+        android:layout_height="120dp"
+        android:background="?attr/colorPrimary">
+
+    </android.support.v7.widget.Toolbar>
 
     <LinearLayout
         android:orientation="vertical"
-        android:layout_gravity="center"
+        android:layout_gravity="end|bottom"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
 

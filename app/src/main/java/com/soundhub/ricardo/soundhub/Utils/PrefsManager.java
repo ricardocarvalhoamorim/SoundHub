@@ -23,7 +23,12 @@ public class PrefsManager {
             return dispatchBaseStatistics(context, settings);
         }
 
-        return new Gson().fromJson(settings.getString(Utils.GENRE_STATS_ENTRY, ""), Utils.ARRAY_GENRE_ITEMS);
+        ArrayList<GenreItem> items = new Gson().fromJson(settings.getString(Utils.GENRE_STATS_ENTRY, ""), Utils.ARRAY_GENRE_ITEMS);
+        for (GenreItem item : items) {
+            item.setNowPlaying(false);
+        }
+
+        return items;
     }
 
     public static  void updateGenresAsync(Context context, ArrayList<GenreItem> items) {

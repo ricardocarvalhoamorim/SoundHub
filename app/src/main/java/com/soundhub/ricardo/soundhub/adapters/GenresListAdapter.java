@@ -4,6 +4,7 @@ package com.soundhub.ricardo.soundhub.adapters;
  * Created by ricardo on 17-03-2015.
  */
 
+import android.content.Context;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -23,12 +24,15 @@ public class GenresListAdapter  extends RecyclerView.Adapter<RecyclerView.ViewHo
 
     private ArrayList<GenreItem> items;
     private static OnItemClickListener listener;
+    private Context mContext;
 
 
     public GenresListAdapter(ArrayList<GenreItem> srcItems,
-                                 OnItemClickListener clickListener) {
+                                 OnItemClickListener clickListener,
+                                 Context context) {
 
         this.items = srcItems;
+        this.mContext = context;
         listener = clickListener;
     }
 
@@ -53,6 +57,22 @@ public class GenresListAdapter  extends RecyclerView.Adapter<RecyclerView.ViewHo
         switch (viewType) {
             case Utils.VIEW_TYPE_GENRE_ITEM:
                 GenreItem item = items.get(position);
+
+                int colorResId;
+                if (item.isNowPlaying()) {
+                    colorResId =  mContext.getResources().getColor(R.color.fab_material_teal_900);
+                    ((GenreItemViewHolder) holder).itemCard.setCardElevation(26);
+                    ((GenreItemViewHolder) holder).tvItemValue.setTextColor(mContext.getResources().getColor(R.color.fab_material_white));
+                    ((GenreItemViewHolder) holder).tvItemArtists.setTextColor(mContext.getResources().getColor(R.color.fab_material_white));
+                } else {
+                    colorResId =  mContext.getResources().getColor(R.color.fab_material_white);
+                    ((GenreItemViewHolder) holder).itemCard.setCardElevation(6);
+
+                    ((GenreItemViewHolder) holder).tvItemValue.setTextColor(mContext.getResources().getColor(R.color.background_floating_material_dark));
+                    ((GenreItemViewHolder) holder).tvItemArtists.setTextColor(mContext.getResources().getColor(R.color.background_floating_material_dark));
+                }
+
+                ((GenreItemViewHolder) holder).itemCard.setCardBackgroundColor(colorResId);
 
                 ((GenreItemViewHolder) holder).tvItemValue.setText(item.getGenreValue());
                 if (!item.getArtists().equals("")) {
