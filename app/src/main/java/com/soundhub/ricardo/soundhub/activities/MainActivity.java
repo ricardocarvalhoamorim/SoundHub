@@ -18,6 +18,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.DecelerateInterpolator;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.software.shell.fab.ActionButton;
@@ -45,6 +46,7 @@ public class MainActivity extends ActionBarActivity implements OnItemClickListen
     private static ActionButton actionButton;
     private ActionButton skipButton;
     private ActionButton prevButton;
+    private ProgressBar progressBar;
 
     private SoundHubService mServer;
     private Intent playIntent;
@@ -68,6 +70,7 @@ public class MainActivity extends ActionBarActivity implements OnItemClickListen
         skipButton = (ActionButton) findViewById(R.id.action_button_skip);
         prevButton = (ActionButton) findViewById(R.id.action_button_prev);
         toolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.toolbar);
+        progressBar = (ProgressBar) findViewById(R.id.progress);
         setSupportActionBar(toolbar);
 
 
@@ -145,6 +148,8 @@ public class MainActivity extends ActionBarActivity implements OnItemClickListen
         items = PrefsManager.getGenres(this);
         mAdapter = new GenresListAdapter(items, this, MainActivity.this);
         mRecyclerView.setAdapter(mAdapter);
+
+        progressBar.setVisibility(View.INVISIBLE);
 
         mRecyclerView.setOnScrollListener(new ScrollListener() {
             @Override
@@ -267,6 +272,8 @@ public class MainActivity extends ActionBarActivity implements OnItemClickListen
                 .appendQueryParameter("limit", "200")
                 .build();
 
+        progressBar.setVisibility(View.VISIBLE);
+
         new AsyncTrackFetcher(new AsyncCustomTaskHandler<ArrayList<TrackLookupResponse>>() {
 
             @Override
@@ -284,6 +291,7 @@ public class MainActivity extends ActionBarActivity implements OnItemClickListen
                 toolbar.setTitle(result.get(playQueueIndex).getTitle());
                 toolbar.setSubtitle(result.get(playQueueIndex).getUser().getUsername());
 
+                items.get(genreSelectionIndex).onPlay();
                 items.get(genreSelectionIndex).addArtists(result.get(playQueueIndex).getUser().getUsername());
                 items.get(genreSelectionIndex).setNowPlaying(true);
 
@@ -296,6 +304,8 @@ public class MainActivity extends ActionBarActivity implements OnItemClickListen
                 skipButton.show();
                 prevButton.show();
                 playQueueIndex++;
+
+                progressBar.setVisibility(View.INVISIBLE);
             }
 
             @Override

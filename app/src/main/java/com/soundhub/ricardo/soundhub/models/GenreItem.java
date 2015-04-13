@@ -8,6 +8,7 @@ public class GenreItem {
     private String GenreValue;
     private boolean nowPlaying;
     private String artists = "";
+    private int playCount;
     private TrackLookupResponse currentTrack;
 
 
@@ -46,5 +47,17 @@ public class GenreItem {
             this.artists += ", " +newArtists;
         }
 
+    }
+
+    public int getPlayCount() {
+        return playCount;
+    }
+
+    public void setPlayCount(int playCount) {
+        this.playCount = playCount;
+    }
+
+    public void onPlay() {
+        this.playCount = playCount + 1;
     }
 }

@@ -64,12 +64,16 @@ public class GenresListAdapter  extends RecyclerView.Adapter<RecyclerView.ViewHo
                     ((GenreItemViewHolder) holder).itemCard.setCardElevation(26);
                     ((GenreItemViewHolder) holder).tvItemValue.setTextColor(mContext.getResources().getColor(R.color.fab_material_white));
                     ((GenreItemViewHolder) holder).tvItemArtists.setTextColor(mContext.getResources().getColor(R.color.fab_material_white));
+                    ((GenreItemViewHolder) holder).tvNowPlaying.setTextColor(mContext.getResources().getColor(R.color.fab_material_white));
+                    ((GenreItemViewHolder) holder).tvPlayCount.setTextColor(mContext.getResources().getColor(R.color.fab_material_white));
+                    ((GenreItemViewHolder) holder).tvNowPlaying.setVisibility(View.VISIBLE);
                 } else {
                     colorResId =  mContext.getResources().getColor(R.color.fab_material_white);
                     ((GenreItemViewHolder) holder).itemCard.setCardElevation(6);
-
                     ((GenreItemViewHolder) holder).tvItemValue.setTextColor(mContext.getResources().getColor(R.color.background_floating_material_dark));
                     ((GenreItemViewHolder) holder).tvItemArtists.setTextColor(mContext.getResources().getColor(R.color.background_floating_material_dark));
+                    ((GenreItemViewHolder) holder).tvPlayCount.setTextColor(mContext.getResources().getColor(R.color.background_floating_material_dark));
+                    ((GenreItemViewHolder) holder).tvNowPlaying.setVisibility(View.INVISIBLE);
                 }
 
                 ((GenreItemViewHolder) holder).itemCard.setCardBackgroundColor(colorResId);
@@ -82,12 +86,14 @@ public class GenresListAdapter  extends RecyclerView.Adapter<RecyclerView.ViewHo
                     ((GenreItemViewHolder) holder).tvItemArtists.setVisibility(View.GONE);
                 }
 
-
-                if (item.isNowPlaying()) {
-                    ((GenreItemViewHolder) holder).tvNowPlaying.setVisibility(View.VISIBLE);
+                if (item.getPlayCount() > 0) {
+                    ((GenreItemViewHolder) holder).tvPlayCount.setVisibility(View.VISIBLE);
+                    ((GenreItemViewHolder) holder).tvPlayCount.setText(item.getPlayCount() + " times");
                 } else {
-                    ((GenreItemViewHolder) holder).tvNowPlaying.setVisibility(View.GONE);
+                    ((GenreItemViewHolder) holder).tvPlayCount.setVisibility(View.INVISIBLE);
                 }
+
+
                 break;
 
             case Utils.VIEW_TYPE_TRACK_INFO:
@@ -112,6 +118,7 @@ public class GenresListAdapter  extends RecyclerView.Adapter<RecyclerView.ViewHo
         private TextView tvItemValue;
         private TextView tvItemArtists;
         private TextView tvNowPlaying;
+        private TextView tvPlayCount;
         private CardView itemCard;
 
         public GenreItemViewHolder(View rowView) {
@@ -120,6 +127,7 @@ public class GenresListAdapter  extends RecyclerView.Adapter<RecyclerView.ViewHo
             tvItemValue = (TextView) rowView.findViewById(R.id.genre_value);
             tvItemArtists = (TextView) rowView.findViewById(R.id.genre_artists);
             tvNowPlaying = (TextView) rowView.findViewById(R.id.genre_now_playing);
+            tvPlayCount = (TextView) rowView.findViewById(R.id.genre_play_count);
             itemCard = (CardView) rowView.findViewById(R.id.item_card_container);
 
             rowView.setOnClickListener(this);
