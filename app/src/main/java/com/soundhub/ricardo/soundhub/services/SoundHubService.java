@@ -24,7 +24,7 @@ public class SoundHubService extends Service implements
 
 
     private MediaPlayer player;
-    private ArrayList<TrackLookupResponse> playeQueue;
+    private ArrayList<TrackLookupResponse> playQueue;
     private int trackPos;
 
     private final IBinder musicBind = new MusicBinder();
@@ -40,10 +40,10 @@ public class SoundHubService extends Service implements
 
     @Override
     public void onCompletion(MediaPlayer mp) {
-        if (playeQueue == null)
+        if (playQueue == null)
             return;
 
-        if (playeQueue.size() > trackPos) {
+        if (playQueue.size() > trackPos) {
             setTrackPos(++trackPos);
             playSong();
         }
@@ -85,12 +85,12 @@ public class SoundHubService extends Service implements
     }
 
     public void setTrackQueue(ArrayList<TrackLookupResponse> queue){
-        playeQueue = queue;
+        playQueue = queue;
     }
 
     public void playSong() {
         player.reset();
-        TrackLookupResponse track = playeQueue.get(trackPos);
+        TrackLookupResponse track = playQueue.get(trackPos);
 
         try {
             Uri builtUri = Uri.parse(track.getStream_url()).buildUpon()

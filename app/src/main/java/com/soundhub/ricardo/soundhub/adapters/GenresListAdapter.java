@@ -1,9 +1,5 @@
 package com.soundhub.ricardo.soundhub.adapters;
 
-/**
- * Created by ricardo on 17-03-2015.
- */
-
 import android.content.Context;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
@@ -19,7 +15,9 @@ import com.soundhub.ricardo.soundhub.models.GenreItem;
 
 import java.util.ArrayList;
 
-
+/**
+ * Adapter for the genre items and their states changes
+ */
 public class GenresListAdapter  extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private ArrayList<GenreItem> items;
@@ -60,7 +58,7 @@ public class GenresListAdapter  extends RecyclerView.Adapter<RecyclerView.ViewHo
 
                 int colorResId;
                 if (item.isNowPlaying()) {
-                    colorResId =  mContext.getResources().getColor(R.color.fab_material_teal_900);
+                    colorResId =  mContext.getResources().getColor(R.color.fab_material_teal_500);
                     ((GenreItemViewHolder) holder).itemCard.setCardElevation(26);
                     ((GenreItemViewHolder) holder).tvItemValue.setTextColor(mContext.getResources().getColor(R.color.fab_material_white));
                     ((GenreItemViewHolder) holder).tvItemArtists.setTextColor(mContext.getResources().getColor(R.color.fab_material_white));

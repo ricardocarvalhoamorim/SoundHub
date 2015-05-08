@@ -77,7 +77,7 @@ public class MainActivity extends ActionBarActivity implements OnItemClickListen
         int currentapiVersion = android.os.Build.VERSION.SDK_INT;
         if (currentapiVersion >= Build.VERSION_CODES.LOLLIPOP
                 && getSupportActionBar() != null) {
-            getSupportActionBar().setElevation(0);
+            getSupportActionBar().setElevation(25);
         }
 
         playQueueIndex = -1;
@@ -87,6 +87,7 @@ public class MainActivity extends ActionBarActivity implements OnItemClickListen
         prevButton.hide();
 
         actionButton.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View v) {
                 if (mServer.isPlaying()) {
@@ -134,6 +135,7 @@ public class MainActivity extends ActionBarActivity implements OnItemClickListen
                     return;
                 }
                 playQueueIndex--;
+
                 dispatchPlaySelection();
             }
         });
@@ -205,7 +207,12 @@ public class MainActivity extends ActionBarActivity implements OnItemClickListen
 
     @Override
     public void onItemLongClick(View view, int position) {
-
+        if (playQueueIndex >= 0) {
+            String url = playQueue.get(playQueueIndex).getPermalink_url();
+            Intent i = new Intent(Intent.ACTION_VIEW);
+            i.setData(Uri.parse(url));
+            startActivity(i);
+        }
     }
 
     private ServiceConnection playerConnection = new ServiceConnection() {
@@ -245,14 +252,7 @@ public class MainActivity extends ActionBarActivity implements OnItemClickListen
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        if (id == R.id.action_info) {
-            if (playQueueIndex >= 0) {
-                String url = playQueue.get(playQueueIndex).getPermalink_url();
-                Intent i = new Intent(Intent.ACTION_VIEW);
-                i.setData(Uri.parse(url));
-                startActivity(i);
-            }
-        } else if (id == R.id.action_settings) {
+       if (id == R.id.action_settings) {
             Intent intent = new Intent(this, SettingsActivity.class);
             startActivity(intent);
         }
@@ -261,7 +261,7 @@ public class MainActivity extends ActionBarActivity implements OnItemClickListen
 
     /**
      * Requests a set of tracks belonging to a specific genre and
-     * if successfull, starts playing
+     * if successful, starts playing
      * @param activeGenre genre that was selected by the user
      */
     private void fetchTracks(String activeGenre) {

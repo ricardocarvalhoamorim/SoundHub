@@ -2,6 +2,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/list_genres"
         android:divider="@android:color/transparent"
@@ -26,6 +28,16 @@
         android:background="?attr/colorPrimary">
     </android.support.v7.widget.Toolbar>
 
+
+    <ProgressBar
+        android:id="@+id/progress"
+        android:indeterminate="true"
+        style="@android:style/Widget.Material.ProgressBar.Horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        />
+
     <LinearLayout
         android:orientation="vertical"
         android:layout_gravity="end|bottom"
@@ -37,7 +49,7 @@
             fab:type="mini"
             android:layout_gravity="center_horizontal"
             fab:button_color="@color/fab_material_teal_500"
-            fab:button_colorPressed="@color/fab_material_teal_900"
+            fab:button_colorPressed="@color/fab_material_amber_900"
             fab:image="@android:drawable/ic_media_previous"
             fab:image_size="24dp"
             fab:show_animation="@anim/fab_scale_up"
@@ -78,12 +90,6 @@
             android:layout_margin="@dimen/fab_margin"
             />
 
-        <ProgressBar
-            android:id="@+id/progress"
-            android:indeterminate="true"
-            style="@android:style/Widget.Material.ProgressBar.Horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
     </LinearLayout>
 
 </FrameLayout>
