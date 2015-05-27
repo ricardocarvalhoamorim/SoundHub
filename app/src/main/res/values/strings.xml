@@ -1,6 +1,15 @@
 <resources>
     <string name="app_name">SoundHub</string>
     <string name="action_settings">Settings</string>
-    <string name="action_info">Track Info</string>
     <string name="title_activity_settings">SettingsActivity</string>
+    <string name="settings_about">This is an extremely, utterly simple app. I made it mainly to try out the new google gimmicks, but also to embrace music streaming without any hassles, ideally to play background music for parties (hehe). Well if you have any feedback or feature-request (keep in mind that this is intended to be simple, and that I have a full time job), please share it with me! \n\nI will continue to improve the overall experience of the app, so stay tuned for future updates!</string>
+    <string name="thanks_to">Many thanks to…</string>
+    <string name="source_code_location">Anyway, my source code is available at GitHub. Feel free to check it out</string>
+    <string name="settings_header">Hey! You\'re awesome! Thanks for using this app!</string>
+    <string name="item_song_name">Song name</string>
+    <string name="item_song_artists">These are the artists</string>
+    <string name="item_song_play_count">13 times</string>
+    <string name="now_playing">…NOW PLAYING</string>
+    <string name="item_genre_name">This is the name of the thing</string>
+    <string name="item_genre_artists">These are the artists</string>
 </resources>

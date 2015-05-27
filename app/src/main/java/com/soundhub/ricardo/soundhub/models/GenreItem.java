@@ -1,24 +1,11 @@
 package com.soundhub.ricardo.soundhub.models;
 
-/**
- * Created by ricardo on 17-03-2015.
- */
 public class GenreItem {
 
     private String GenreValue;
     private boolean nowPlaying;
     private String artists = "";
     private int playCount;
-    private TrackLookupResponse currentTrack;
-
-
-    public TrackLookupResponse getCurrentTrack() {
-        return currentTrack;
-    }
-
-    public void setCurrentTrack(TrackLookupResponse currentTrack) {
-        this.currentTrack = currentTrack;
-    }
 
     public String getGenreValue() {
         return GenreValue;
@@ -51,10 +38,6 @@ public class GenreItem {
 
     public int getPlayCount() {
         return playCount;
-    }
-
-    public void setPlayCount(int playCount) {
-        this.playCount = playCount;
     }
 
     public void onPlay() {

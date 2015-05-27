@@ -7,9 +7,6 @@ import com.soundhub.ricardo.soundhub.models.TrackLookupResponse;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 
-/**
- * Created by ricardo on 17-03-2015.
- */
 public class Utils {
 
     public static final String clientKey = "1d6219b73d0ca10f8284138b20d29f19";

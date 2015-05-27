@@ -73,7 +73,7 @@ public class SoundHubService extends Service implements
         return false;
     }
 
-    public void attatchPlayer() {
+    private void attatchPlayer() {
         //keep music playing after device lock
         player.setWakeMode(getApplicationContext(),
                 PowerManager.PARTIAL_WAKE_LOCK);

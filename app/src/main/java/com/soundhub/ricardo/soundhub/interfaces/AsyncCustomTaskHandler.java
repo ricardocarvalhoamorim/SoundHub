@@ -6,7 +6,7 @@ package com.soundhub.ricardo.soundhub.interfaces;
  */
 public interface AsyncCustomTaskHandler<T> {
 
-    public void onSuccess(T result);
+    void onSuccess(T result);
 
-    public void onFailure(Exception error);
+    void onFailure(Exception error);
 }

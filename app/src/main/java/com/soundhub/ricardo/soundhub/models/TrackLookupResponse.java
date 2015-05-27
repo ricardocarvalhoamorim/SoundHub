@@ -2,9 +2,6 @@ package com.soundhub.ricardo.soundhub.models;
 
 import java.util.ArrayList;
 
-/**
- * Created by ricardo on 18-03-2015.
- */
 public class TrackLookupResponse {
     private String kind;
     private String id;

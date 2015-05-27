@@ -205,6 +205,7 @@ public class MainActivity extends ActionBarActivity implements OnItemClickListen
         fetchTracks(items.get(position).getGenreValue());
     }
 
+    /*
     @Override
     public void onItemLongClick(View view, int position) {
         if (playQueueIndex >= 0) {
@@ -214,8 +215,9 @@ public class MainActivity extends ActionBarActivity implements OnItemClickListen
             startActivity(i);
         }
     }
+    */
 
-    private ServiceConnection playerConnection = new ServiceConnection() {
+    private final ServiceConnection playerConnection = new ServiceConnection() {
         @Override
         public void onServiceConnected(ComponentName name, IBinder service) {
             SoundHubService.MusicBinder binder = (SoundHubService.MusicBinder) service;

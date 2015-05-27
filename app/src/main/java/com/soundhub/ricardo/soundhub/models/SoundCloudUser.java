@@ -1,8 +1,5 @@
 package com.soundhub.ricardo.soundhub.models;
 
-/**
- * Created by ricardo on 23-03-2015.
- */
 public class SoundCloudUser {
 
     /**

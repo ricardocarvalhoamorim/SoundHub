@@ -16,9 +16,6 @@ import org.apache.http.util.EntityUtils;
 
 import java.util.ArrayList;
 
-/**
- * Created by ricardo on 18-03-2015.
- */
 public class AsyncTrackFetcher extends AsyncTask<Uri, Void, ArrayList<TrackLookupResponse>> {
 
     private final AsyncCustomTaskHandler<ArrayList<TrackLookupResponse>> mHandler;

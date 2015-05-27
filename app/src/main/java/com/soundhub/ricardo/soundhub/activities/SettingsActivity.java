@@ -23,7 +23,7 @@ public class SettingsActivity extends ActionBarActivity {
                 "<a href=http://developer.android.com/training/volley/index.html>Volley library</a> to streamline the network-based application development" +
                 "<br /><br />" +
                 "<a href=https://github.com/google/ExoPlayer>ExoPlayer</a> A newly announced player to make ir easy (meh) to stream both audio and video from different sources"+
-                "<br /><br /> ... as well as other important libraries such as Gson, Appcompat, CardView and RecyclerView"
+                "<br /><br /> ... as well as other important libraries such as GSON, Appcompat, CardView and RecyclerView"
         ));
     }
 

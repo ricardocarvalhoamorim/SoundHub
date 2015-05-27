@@ -11,15 +11,11 @@ import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.Volley;
 import com.soundhub.ricardo.soundhub.Utils.LruBitmapCache;
-import com.soundhub.ricardo.soundhub.Utils.Utils;
 
 import java.io.File;
 
-/**
- * Created by ricardo on 18-03-2015.
- */
 public class AppController extends Application {
-    public static final String TAG = AppController.class
+    private static final String TAG = AppController.class
             .getSimpleName();
 
     private RequestQueue mRequestQueue;
@@ -73,7 +69,7 @@ public class AppController extends Application {
 
     /**
      * Returns the state of each of the settings in the about fragment
-     * @return
+     * @return an array of the different indicators' states
      */
     public static boolean[] getStates() {
 

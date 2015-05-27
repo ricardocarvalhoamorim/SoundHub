@@ -20,9 +20,9 @@ import java.util.ArrayList;
  */
 public class GenresListAdapter  extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-    private ArrayList<GenreItem> items;
+    private final ArrayList<GenreItem> items;
     private static OnItemClickListener listener;
-    private Context mContext;
+    private final Context mContext;
 
 
     public GenresListAdapter(ArrayList<GenreItem> srcItems,
@@ -91,7 +91,6 @@ public class GenresListAdapter  extends RecyclerView.Adapter<RecyclerView.ViewHo
                     ((GenreItemViewHolder) holder).tvPlayCount.setVisibility(View.INVISIBLE);
                 }
 
-
                 break;
 
             case Utils.VIEW_TYPE_TRACK_INFO:
@@ -113,11 +112,11 @@ public class GenresListAdapter  extends RecyclerView.Adapter<RecyclerView.ViewHo
     static class GenreItemViewHolder extends RecyclerView.ViewHolder
             implements View.OnClickListener, View.OnLongClickListener{
 
-        private TextView tvItemValue;
-        private TextView tvItemArtists;
-        private TextView tvNowPlaying;
-        private TextView tvPlayCount;
-        private CardView itemCard;
+        private final TextView tvItemValue;
+        private final TextView tvItemArtists;
+        private final TextView tvNowPlaying;
+        private final TextView tvPlayCount;
+        private final CardView itemCard;
 
         public GenreItemViewHolder(View rowView) {
             super(rowView);
